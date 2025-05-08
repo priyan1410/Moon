@@ -56,31 +56,53 @@
     <br>
     <input type="password" id="passcodeInput" placeholder="Enter passcode">
   </div>
+<!-- In your index.html file, modify the script section -->
+<script>
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const passcodeInput = document.getElementById('passcodeInput');
+  const correctPasscode = "15551"; // Your passcode
 
-  <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const passcodeInput = document.getElementById('passcodeInput');
-    const correctPasscode = "2504"; // ← set your passcode here
+  yesBtn.addEventListener('click', () => {
+    passcodeInput.style.display = 'inline-block';
+    passcodeInput.focus();
+  });
 
-    yesBtn.addEventListener('click', () => {
-      passcodeInput.style.display = 'inline-block';
-      passcodeInput.focus();
-    });
-
-    passcodeInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        if (passcodeInput.value === correctPasscode) {
-          window.location.href = 'bd.html';
-        } else {
-          alert("Wrong passcode 😢");
-        }
+  passcodeInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      if (passcodeInput.value === correctPasscode) {
+        // Send notification before redirecting
+        sendWhatsAppNotification();
+        window.location.href = 'bd.html';
+      } else {
+        alert("Wrong passcode 😢");
       }
-    });
+    }
+  });
 
-    noBtn.addEventListener('click', () => {
-      document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
-    });
-  </script>
+  noBtn.addEventListener('click', () => {
+    document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
+  });
+
+  function sendWhatsAppNotification() {
+    // Using a free service like FormSubmit.co or your own backend
+    fetch('https://formsubmit.co/ajax/padmapriyan14102004@gmail.com', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        message: "Someone entered the correct passcode!",
+        name: "Birthday Website",
+        _subject: "Birthday Website Access"
+      })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+  }
+</script>
+  
 </body>
 </html>
