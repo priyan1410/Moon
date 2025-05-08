@@ -85,41 +85,27 @@
   });
 
   function sendEmailNotification() {
-    // Get additional information to include in the email
-    const userIP = fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => data.ip)
-      .catch(() => "Unknown");
-    
-    const userAgent = navigator.userAgent;
-    const timestamp = new Date().toLocaleString();
-    const pageUrl = window.location.href;
+  // Replace with the token from FormSubmit's activation email
+  const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
 
-    // Using FormSubmit.co to send the email
-    fetch('https://formsubmit.co/ajax/padmapriyan14102004@gmail.com', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        name: "Birthday Website Access",
-        _subject: "🎉 Someone entered the correct passcode!",
-        message: `Someone has successfully entered the correct passcode!\n\n
-        Details:\n
-        - Time: ${timestamp}\n
-        - Page: ${pageUrl}\n
-        - IP Address: ${userIP}\n
-        - Device Info: ${userAgent}\n\n
-        They have been redirected to the birthday page!`,
-        _template: "table",
-        _replyto: "noreply@birthdaywebsite.com" // Optional reply-to email
-      })
+  fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: "Birthday Website Access",
+      _subject: "🎉 Someone entered the passcode!",
+      message: `Someone entered the correct passcode at ${new Date().toLocaleString()}`,
+      _replyto: "noreply@yourwebsite.com", // Optional
+      _template: "table" // Makes the email look nicer
     })
-    .then(response => response.json())
-    .then(data => console.log("Email sent successfully:", data))
-    .catch(error => console.error("Error sending email:", error));
-  }
+  })
+  .then(response => response.json())
+  .then(data => console.log("Email sent!", data))
+  .catch(error => console.error("Error:", error));
+}
 </script>  
 </body>
 </html>
