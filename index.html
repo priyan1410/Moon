@@ -46,6 +46,9 @@
       width: 200px;
       display: none;
     }
+    .name-input {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -54,25 +57,39 @@
     <button id="yesBtn">Yes</button>
     <button id="noBtn">No</button>
     <br>
+    <input type="text" id="nameInput" class="name-input" placeholder="Enter your name">
     <input type="password" id="passcodeInput" placeholder="Enter passcode">
   </div>
-<!-- In your index.html file, modify the script section -->
+
 <script>
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
   const passcodeInput = document.getElementById('passcodeInput');
+  const nameInput = document.getElementById('nameInput');
   const correctPasscode = "0910"; // Your passcode
 
   yesBtn.addEventListener('click', () => {
-    passcodeInput.style.display = 'inline-block';
-    passcodeInput.focus();
+    nameInput.style.display = 'inline-block';
+    nameInput.focus();
+  });
+
+  nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      if (nameInput.value.trim() !== '') {
+        nameInput.style.display = 'none';
+        passcodeInput.style.display = 'inline-block';
+        passcodeInput.focus();
+      } else {
+        alert("Please enter your name first!");
+      }
+    }
   });
 
   passcodeInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       if (passcodeInput.value === correctPasscode) {
-        // Send email notification before redirecting
-        sendEmailNotification();
+        // Send email notification with name before redirecting
+        sendEmailNotification(nameInput.value.trim());
         window.location.href = 'bd.html';
       } else {
         alert("Wrong passcode 😢");
@@ -84,28 +101,28 @@
     document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
   });
 
-  function sendEmailNotification() {
-  // Replace with the token from FormSubmit's activation email
-  const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
+  function sendEmailNotification(userName) {
+    // Replace with the token from FormSubmit's activation email
+    const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
 
-  fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      name: "Birthday Website Access",
-      _subject: "🎉 Someone entered the passcode!",
-      message: `Someone entered the correct passcode at ${new Date().toLocaleString()}`,
-      _replyto: "noreply@yourwebsite.com", // Optional
-      _template: "table" // Makes the email look nicer
+    fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: "Birthday Website Access",
+        _subject: "🎉 Someone entered the passcode!",
+        message: `${userName} entered the correct passcode at ${new Date().toLocaleString()}`,
+        _replyto: "noreply@yourwebsite.com", // Optional
+        _template: "table" // Makes the email look nicer
+      })
     })
-  })
-  .then(response => response.json())
-  .then(data => console.log("Email sent!", data))
-  .catch(error => console.error("Error:", error));
-}
+    .then(response => response.json())
+    .then(data => console.log("Email sent!", data))
+    .catch(error => console.error("Error:", error));
+  }
 </script>  
 </body>
 </html>
