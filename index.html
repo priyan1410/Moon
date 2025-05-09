@@ -49,16 +49,25 @@
     .name-input {
       display: none;
     }
+    .passcode-input {
+      display: none;
+    }
+    .message {
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="box">
-    <h1>Love pannathuku aprom na pandra periya cringe ithuvathan irrukum nu nanaukiren😅. ulla full ah en love ah mattum than kottivachi irruken😅. ok na, Atleast 2 hours free ah iruntha Yes kuduthu ulla po, illana free aaitu yes kudu.</h1>
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
-    <br>
+    <div class="message" id="mainMessage">
+      <h1>Love pannathuku aprom na pandra periya cringe ithuvathan irrukum nu nanaukiren😅. ulla full ah en love ah mattum than kottivachi irruken😅. ok na, Atleast 2 hours free ah iruntha Yes kuduthu ulla po, illana free aaitu yes kudu.</h1>
+    </div>
+    <div id="buttonContainer">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
     <input type="text" id="nameInput" class="name-input" placeholder="Enter your name">
-    <input type="password" id="passcodeInput" placeholder="Enter passcode">
+    <input type="password" id="passcodeInput" class="passcode-input" placeholder="Enter passcode">
   </div>
 
 <script>
@@ -66,17 +75,25 @@
   const noBtn = document.getElementById('noBtn');
   const passcodeInput = document.getElementById('passcodeInput');
   const nameInput = document.getElementById('nameInput');
+  const mainMessage = document.getElementById('mainMessage');
+  const buttonContainer = document.getElementById('buttonContainer');
   const correctPasscode = "0910"; // Your passcode
 
   yesBtn.addEventListener('click', () => {
+    // Hide buttons and show name input
+    buttonContainer.style.display = 'none';
+    mainMessage.innerHTML = "<h2>First, tell me your name 😊</h2>";
     nameInput.style.display = 'inline-block';
     nameInput.focus();
   });
 
   nameInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      if (nameInput.value.trim() !== '') {
+      const userName = nameInput.value.trim();
+      if (userName !== '') {
+        // Hide name input and show passcode input
         nameInput.style.display = 'none';
+        mainMessage.innerHTML = `<h2>Hi ${userName}! Now enter the passcode 🔒</h2>`;
         passcodeInput.style.display = 'inline-block';
         passcodeInput.focus();
       } else {
@@ -92,7 +109,8 @@
         sendEmailNotification(nameInput.value.trim());
         window.location.href = 'bd.html';
       } else {
-        alert("Wrong passcode 😢");
+        alert("Wrong passcode 😢 Try again!");
+        passcodeInput.value = '';
       }
     }
   });
