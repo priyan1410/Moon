@@ -162,39 +162,62 @@ window.addEventListener('resize', arrangeRandomPhotos);
 
 
 
+// Email notification system for user activity
+document.addEventListener("DOMContentLoaded", function() {
+  // Only run on bd.html page
+  if (!window.location.pathname.includes('bd.html')) return;
 
+  let lastActivityTime = Date.now();
+  let emailInterval;
+  const userName = localStorage.getItem('userName') || 'Anonymous User';
 
+  // Function to send email notification
+  function sendActivityEmail() {
+    const formSubmitToken = "ba3716d5a03e254094b30e484d499291"; // Your FormSubmit token
+    const duration = Math.floor((Date.now() - lastActivityTime) / 60000); // Minutes
+    
+    fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: "User Activity Tracker",
+        _subject: `❤️ ${userName} is still on your site`,
+        message: `${userName} has been active for ${duration} minutes (since ${new Date(lastActivityTime).toLocaleTimeString()})`,
+        _template: "table"
+      })
+    })
+    .then(response => response.json())
+    .then(data => console.log("Activity email sent:", data))
+    .catch(error => console.error("Email error:", error));
+  }
 
-readMoreBtn.addEventListener('click', function() {
-  clickCount++;
-  if (clickCount >= totalChunks) {
-    content.addEventListener('scroll', function() {
-      if (content.scrollTop + content.clientHeight >= content.scrollHeight - 50) {
-        triggerCompletionEffect();
-        content.removeEventListener('scroll', this); // Stop tracking
-      }
+  // Start monitoring
+  function startActivityMonitor() {
+    // Send initial email
+    sendActivityEmail();
+    
+    // Set interval for subsequent emails (10 minutes)
+    emailInterval = setInterval(sendActivityEmail, 10 * 60 * 1000);
+    
+    // Update last activity on any user interaction
+    ['mousemove', 'click', 'scroll', 'keypress'].forEach(event => {
+      document.addEventListener(event, () => {
+        lastActivityTime = Date.now();
+      });
     });
   }
-});
-    // Last click - all content visible
-    if (clickCount >= totalChunks) {
-      console.log("User read everything!");
-      readMoreBtn.textContent = "❤️ Completed! ❤️";
-      readMoreBtn.style.background = "#ff69b4";
-      
-      // Trigger celebration effect
-      triggerCompletionEffect();
-    }
-  });
 
-  function triggerCompletionEffect() {
-    // Example: Shoot hearts animation
-    for (let i = 0; i < 50; i++) {
-      createHeart(true); // Use your existing heart animation function
-    }
-    
-    // Optional: Play a sound
-    const audio = new Audio('notification.mp3');
-    audio.play();
+  // Stop monitoring
+  function stopActivityMonitor() {
+    clearInterval(emailInterval);
   }
+
+  // Start when page loads
+  startActivityMonitor();
+  
+  // Stop when user leaves
+  window.addEventListener('beforeunload', stopActivityMonitor);
 });
