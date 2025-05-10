@@ -221,3 +221,36 @@ document.addEventListener("DOMContentLoaded", function() {
   // Stop when user leaves
   window.addEventListener('beforeunload', stopActivityMonitor);
 });
+
+
+
+
+
+
+// In hearts.js
+let active = true;
+
+function checkActivity() {
+  const now = Date.now();
+  // Consider inactive if no activity for 5 minutes
+  active = (now - lastActivityTime) < 300000; 
+  return active;
+}
+
+function sendActivityEmail() {
+  if (!checkActivity()) {
+    console.log("User inactive - skipping email");
+    return;
+  }
+  // Rest of email sending code...
+}
+
+// Add visibility change detection
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    active = false;
+  } else {
+    active = true;
+    lastActivityTime = Date.now();
+  }
+});
