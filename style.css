@@ -557,45 +557,6 @@ html, body {
   }
 }
 
-/* Love letter read more styles */
-.love-letter-content {
-  max-height: 300px; /* Show about 100 lines */
-  overflow: hidden;
-  position: relative;
-  transition: max-height 0.5s ease;
-}
-
-.love-letter-content.expanded {
-  max-height: none;
-}
-
-.love-letter-content:not(.expanded)::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.9));
-}
-
-.read-more-btn {
-  display: block;
-  margin: 15px auto;
-  padding: 8px 20px;
-  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-  color: #5d001e;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: all 0.3s ease;
-}
-
-.read-more-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
 
 .read-more-btn.hidden {
   display: none;
