@@ -1,4 +1,4 @@
-// hearts.js
+// hearts.j
 function createBackgroundHearts(count = 25) {
     const colors = ['#ffb3c6', '#ffccd5', '#fff0f3', '#ff8fab']; // Softer, more pastel colors
   
