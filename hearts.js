@@ -165,15 +165,17 @@ window.addEventListener('resize', arrangeRandomPhotos);
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
-  const content = document.querySelector('.love-letter-content');
-  const readMoreBtn = document.querySelector('.read-more-btn');
-  let clickCount = 0;
-  const totalChunks = 3; // Set based on your content length (e.g., 3 "Read more" clicks to show all)
-
-  readMoreBtn.addEventListener('click', function() {
-    clickCount++;
-    
+readMoreBtn.addEventListener('click', function() {
+  clickCount++;
+  if (clickCount >= totalChunks) {
+    content.addEventListener('scroll', function() {
+      if (content.scrollTop + content.clientHeight >= content.scrollHeight - 50) {
+        triggerCompletionEffect();
+        content.removeEventListener('scroll', this); // Stop tracking
+      }
+    });
+  }
+});
     // Last click - all content visible
     if (clickCount >= totalChunks) {
       console.log("User read everything!");
