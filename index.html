@@ -59,13 +59,6 @@
 </head>
 <body>
   <div class="box">
-<<<<<<< HEAD
-    <h1>Love pannathuku aprom na pandra periya cringe ithuvathan irrukum nu nanaukiren😅. ulla full ah en love ah mattum than kottivachi irruken😅. ok na, Atleast 2 hours free ah iruntha Yes kuduthu ulla po, illana free aaitu yes kudu.</h1>
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
-    <br>
-    <input type="password" id="passcodeInput" placeholder="Enter passcode">
-=======
     <div class="message" id="mainMessage">
       <h1>Love pannathuku aprom na pandra periya cringe ithuvathan irrukum nu nanaukiren😅. ulla full ah en love ah mattum than kottivachi irruken😅. ok na, Atleast 2 hours free ah iruntha Yes kuduthu ulla po, illana free aaitu yes kudu.</h1>
     </div>
@@ -75,30 +68,8 @@
     </div>
     <input type="text" id="nameInput" class="name-input" placeholder="Enter your name">
     <input type="password" id="passcodeInput" class="passcode-input" placeholder="Enter passcode">
->>>>>>> e1cfc6f6b192492b66d9cac823db55f258ea176c
   </div>
-<!-- In your index.html file, modify the script section -->
-<script>
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const passcodeInput = document.getElementById('passcodeInput');
-  const correctPasscode = "0910"; // Your passcode
 
-<<<<<<< HEAD
-  yesBtn.addEventListener('click', () => {
-    passcodeInput.style.display = 'inline-block';
-    passcodeInput.focus();
-  });
-
-  passcodeInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      if (passcodeInput.value === correctPasscode) {
-        // Send email notification before redirecting
-        sendEmailNotification();
-        window.location.href = 'bd.html';
-      } else {
-        alert("Wrong passcode 😢");
-=======
 <script>
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
@@ -127,13 +98,10 @@
         passcodeInput.focus();
       } else {
         alert("Please enter your name first!");
->>>>>>> e1cfc6f6b192492b66d9cac823db55f258ea176c
       }
     }
   });
 
-<<<<<<< HEAD
-=======
   passcodeInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       if (passcodeInput.value === correctPasscode) {
@@ -147,35 +115,10 @@
     }
   });
 
->>>>>>> e1cfc6f6b192492b66d9cac823db55f258ea176c
   noBtn.addEventListener('click', () => {
     document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
   });
 
-<<<<<<< HEAD
-  function sendEmailNotification() {
-  // Replace with the token from FormSubmit's activation email
-  const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
-
-  fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      name: "Birthday Website Access",
-      _subject: "🎉 Someone entered the passcode!",
-      message: `Someone entered the correct passcode at ${new Date().toLocaleString()}`,
-      _replyto: "noreply@yourwebsite.com", // Optional
-      _template: "table" // Makes the email look nicer
-    })
-  })
-  .then(response => response.json())
-  .then(data => console.log("Email sent!", data))
-  .catch(error => console.error("Error:", error));
-}
-=======
   function sendEmailNotification(userName) {
     // Replace with the token from FormSubmit's activation email
     const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
@@ -198,7 +141,6 @@
     .then(data => console.log("Email sent!", data))
     .catch(error => console.error("Error:", error));
   }
->>>>>>> e1cfc6f6b192492b66d9cac823db55f258ea176c
 </script>  
 </body>
 </html>
