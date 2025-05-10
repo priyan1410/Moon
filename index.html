@@ -103,17 +103,18 @@
   });
 
   passcodeInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      if (passcodeInput.value === correctPasscode) {
-        // Send email notification with name before redirecting
-        sendEmailNotification(nameInput.value.trim());
-        window.location.href = 'bd.html';
-      } else {
-        alert("Wrong passcode 😢 Try again!");
-        passcodeInput.value = '';
-      }
+  if (e.key === 'Enter') {
+    if (passcodeInput.value === correctPasscode) {
+      // Store the name for use on bd.html
+      localStorage.setItem('userName', nameInput.value.trim());
+      sendEmailNotification(nameInput.value.trim());
+      window.location.href = 'bd.html';
+    } else {
+      alert("Wrong passcode 😢 Try again!");
+      passcodeInput.value = '';
     }
-  });
+  }
+});
 
   noBtn.addEventListener('click', () => {
     document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
