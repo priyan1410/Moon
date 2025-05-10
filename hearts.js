@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Function to send email notification
   function sendActivityEmail() {
     const formSubmitToken = "ba3716d5a03e254094b30e484d499291"; // Your FormSubmit token
-    const duration = Math.floor(5*((Date.now() - lastActivityTime) / 60000)); // Minutes
+    const duration = Math.floor((Date.now() - lastActivityTime) / 60000); // Minutes
     
     fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
       method: 'POST',
