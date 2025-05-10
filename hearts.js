@@ -159,3 +159,40 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", arrangeRandomPhotos);
 window.addEventListener('resize', arrangeRandomPhotos);
 
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const content = document.querySelector('.love-letter-content');
+  const readMoreBtn = document.querySelector('.read-more-btn');
+  let clickCount = 0;
+  const totalChunks = 3; // Set based on your content length (e.g., 3 "Read more" clicks to show all)
+
+  readMoreBtn.addEventListener('click', function() {
+    clickCount++;
+    
+    // Last click - all content visible
+    if (clickCount >= totalChunks) {
+      console.log("User read everything!");
+      readMoreBtn.textContent = "❤️ Completed! ❤️";
+      readMoreBtn.style.background = "#ff69b4";
+      
+      // Trigger celebration effect
+      triggerCompletionEffect();
+    }
+  });
+
+  function triggerCompletionEffect() {
+    // Example: Shoot hearts animation
+    for (let i = 0; i < 50; i++) {
+      createHeart(true); // Use your existing heart animation function
+    }
+    
+    // Optional: Play a sound
+    const audio = new Audio('notification.mp3');
+    audio.play();
+  }
+});
