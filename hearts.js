@@ -158,3 +158,37 @@ document.addEventListener("DOMContentLoaded", () => {
 // Call on load and window resize
 document.addEventListener("DOMContentLoaded", arrangeRandomPhotos);
 window.addEventListener('resize', arrangeRandomPhotos);
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const contentElement = document.querySelector('.love-letter-content');
+  const readMoreBtn = document.querySelector('.read-more-btn');
+  
+  // Calculate if content is long enough to need "Read more"
+  const isOverflowing = contentElement.scrollHeight > contentElement.clientHeight;
+  
+  if (!isOverflowing) {
+    readMoreBtn.classList.add('hidden');
+  }
+  
+  // Read more button click handler
+  readMoreBtn.addEventListener('click', function() {
+    contentElement.classList.toggle('expanded');
+    
+    if (contentElement.classList.contains('expanded')) {
+      readMoreBtn.textContent = 'Show less';
+      // Scroll to the button position to keep context
+      readMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      readMoreBtn.textContent = 'Read more...';
+      // Scroll to the top of the content
+      contentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
