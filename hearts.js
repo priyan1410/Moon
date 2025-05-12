@@ -1,4 +1,4 @@
-// hearts.js
+// hearts.j
 function createBackgroundHearts(count = 25) {
     const colors = ['#ffb3c6', '#ffccd5', '#fff0f3', '#ff8fab']; // Softer, more pastel colors
   
@@ -158,3 +158,99 @@ document.addEventListener("DOMContentLoaded", () => {
 // Call on load and window resize
 document.addEventListener("DOMContentLoaded", arrangeRandomPhotos);
 window.addEventListener('resize', arrangeRandomPhotos);
+
+
+
+
+// Email notification system for user activity
+document.addEventListener("DOMContentLoaded", function() {
+  // Only run on bd.html page
+  if (!window.location.pathname.includes('bd.html')) return;
+
+  let lastActivityTime = Date.now();
+  let emailInterval;
+  const userName = localStorage.getItem('userName') || 'Anonymous User';
+
+  // Function to send email notification
+  function sendActivityEmail() {
+    const formSubmitToken = "ba3716d5a03e254094b30e484d499291"; // Your FormSubmit token
+    const duration = Math.floor((Date.now() - lastActivityTime) / 60000); // Minutes
+    
+    fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: "User Activity Tracker",
+        _subject: `❤️ ${userName} is still on your site`,
+        message: `${userName} has been active for ${duration} minutes (since ${new Date(lastActivityTime).toLocaleTimeString()})`,
+        _template: "table"
+      })
+    })
+    .then(response => response.json())
+    .then(data => console.log("Activity email sent:", data))
+    .catch(error => console.error("Email error:", error));
+  }
+
+  // Start monitoring
+  function startActivityMonitor() {
+    // Send initial email
+    sendActivityEmail();
+    
+    // Set interval for subsequent emails (10 minutes)
+    emailInterval = setInterval(sendActivityEmail, 5 * 60 * 1000);
+    
+    // Update last activity on any user interaction
+    ['mousemove', 'click', 'scroll', 'keypress'].forEach(event => {
+      document.addEventListener(event, () => {
+        lastActivityTime = Date.now();
+      });
+    });
+  }
+
+  // Stop monitoring
+  function stopActivityMonitor() {
+    clearInterval(emailInterval);
+  }
+
+  // Start when page loads
+  startActivityMonitor();
+  
+  // Stop when user leaves
+  window.addEventListener('beforeunload', stopActivityMonitor);
+});
+
+
+
+
+
+
+// In hearts.js
+let active = true;
+
+function checkActivity() {
+  const now = Date.now();
+  // Consider inactive if no activity for 5 minutes
+  active = (now - lastActivityTime) < 300000; 
+  return active;
+}
+
+function sendActivityEmail() {
+  if (!checkActivity()) {
+    console.log("User inactive - skipping email");
+    return;
+  }
+  // Rest of email sending code...
+}
+
+// Add visibility change detection
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    active = false;
+  } else {
+    active = true;
+    lastActivityTime = Date.now();
+  }
+});

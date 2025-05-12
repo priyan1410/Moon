@@ -465,7 +465,7 @@ html, body {
   background: rgba(255,255,255,0.1);
 }
 .love-letter {
-  font-family: Soria, sans-serif;
+  font-family: Caroni, sans-serif;
   text-align: justify;
   line-height: 1.8;
 }
@@ -509,7 +509,6 @@ html, body {
   z-index: 10;
   filter: brightness(1.1);
 }
-/* Instagram Reels Section - Horizontal Layout */
 .reels-section {
   margin: 20px 0;
   padding: 20px;
@@ -556,4 +555,9 @@ html, body {
     flex-direction: column; /* Stack vertically on small screens */
     align-items: center;
   }
+}
+
+
+.read-more-btn.hidden {
+  display: none;
 }
