@@ -286,3 +286,26 @@ async function loadReelThumbnails() {
 
 // Call when page loads
 document.addEventListener('DOMContentLoaded', loadReelThumbnails);
+
+
+const puppeteer = require('puppeteer');
+
+async function getReelThumbnail(url) {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url, { waitUntil: 'networkidle2' });
+
+  // Look for Open Graph meta tag
+  const thumbnail = await page.evaluate(() => {
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    return ogImage ? ogImage.getAttribute('content') : null;
+  });
+
+  await browser.close();
+  return thumbnail;
+}
+
+// Example usage
+getReelThumbnail('https://www.instagram.com/reel/DICAu3GtZzO/')
+  .then(url => console.log('Thumbnail URL:', url))
+  .catch(console.error);
