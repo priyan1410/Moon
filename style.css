@@ -512,7 +512,6 @@ html, body {
 
 .reels-section {
   padding: 40px 20px;
-  background: linear-gradient(135deg, #fff0f5, #e0eafc);
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(255, 105, 180, 0.15);
   max-width: 1000px;
