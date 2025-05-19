@@ -254,3 +254,58 @@ document.addEventListener('visibilitychange', () => {
     lastActivityTime = Date.now();
   }
 });
+
+
+// This would require server-side code or a proxy to fetch thumbnails
+async function loadReelThumbnails() {
+  const reelLinks = [
+    'https://www.instagram.com/reel/DICAu3GtZzO/',
+    'https://www.instagram.com/reel/DHoCVFnS3fs/',
+    // Add all reel URLs
+  ];
+  
+  const reelGrid = document.querySelector('.reels-grid');
+  
+  for (const url of reelLinks) {
+    try {
+      const thumbnailUrl = await getThumbnailUrl(url); // You'd need to implement this
+      const reelItem = document.createElement('div');
+      reelItem.className = 'reel-item';
+      reelItem.innerHTML = `
+        <a href="${url}" target="_blank">
+          <img src="${thumbnailUrl}" alt="Reel thumbnail">
+          <div class="reel-overlay">▶️</div>
+        </a>
+      `;
+      reelGrid.appendChild(reelItem);
+    } catch (error) {
+      console.error('Error loading reel:', error);
+    }
+  }
+}
+
+// Call when page loads
+document.addEventListener('DOMContentLoaded', loadReelThumbnails);
+
+
+const puppeteer = require('puppeteer');
+
+async function getReelThumbnail(url) {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url, { waitUntil: 'networkidle2' });
+
+  // Look for Open Graph meta tag
+  const thumbnail = await page.evaluate(() => {
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    return ogImage ? ogImage.getAttribute('content') : null;
+  });
+
+  await browser.close();
+  return thumbnail;
+}
+
+// Example usage
+getReelThumbnail('https://www.instagram.com/reel/DICAu3GtZzO/')
+  .then(url => console.log('Thumbnail URL:', url))
+  .catch(console.error);
