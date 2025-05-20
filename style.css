@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 
-/* Base styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', cursive, sans-serif;
@@ -11,7 +10,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Container */
 .container {
   padding: 40px 20px;
 }
@@ -557,3 +555,17 @@ html, body {
   transform: translateY(-4px) scale(1.03);
   box-shadow: 0 6px 15px rgba(0,0,0,0.25);
 }
+
+
+
+
+
+
+canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .2);
+        }
