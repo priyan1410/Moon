@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 
-/* Base styles */
-/* style (1).css - updated */
-@import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
-
-/* Base styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', cursive, sans-serif;
@@ -15,19 +10,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Canvas styles from style.css */
-canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .2);
-}
-
-/* Rest of the existing style (1).css content remains the same */
-[... rest of the existing style (1).css content ...]
-/* Container */
 .container {
   padding: 40px 20px;
 }
