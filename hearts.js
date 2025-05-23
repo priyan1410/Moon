@@ -169,14 +169,3 @@ function setupFeedbackForm() {
     });
   });
 }
-
-// Initialize everything when DOM is loaded
-document.addEventListener("DOMContentLoaded", () => {
-  createBackgroundHearts(30);
-  setupVideoControls();
-  arrangeRandomPhotos();
-  setupFeedbackForm();
-  
-  // Call on window resize
-  window.addEventListener('resize', arrangeRandomPhotos);
-});
