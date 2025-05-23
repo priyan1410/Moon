@@ -304,3 +304,39 @@ async function getReelThumbnail(url) {
   await browser.close();
   return thumbnail;
 }
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('feedbackForm');
+  const message = document.getElementById('feedbackMessage');
+  const email = document.getElementById('userEmail');
+  const status = document.getElementById('feedbackStatus');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent page reload
+
+    fetch("https://formsubmit.co/ajax/padmapriyan14102004@gmail.com", {
+      method: "POST",
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        message: message.value,
+        email: email.value,
+        _subject: "❤️ New Feedback Received"
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      status.textContent = "Thank you for your feedback!";
+      message.value = '';
+      email.value = '';
+    })
+    .catch(error => {
+      status.textContent = "Oops! Something went wrong.";
+      console.error("Feedback error:", error);
+    });
+  });
+});
