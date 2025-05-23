@@ -306,19 +306,17 @@ async function getReelThumbnail(url) {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('feedbackForm');
   const message = document.getElementById('feedbackMessage');
   const email = document.getElementById('userEmail');
   const status = document.getElementById('feedbackStatus');
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent page reload
-
-    fetch("https://formsubmit.co/ajax/padmapriyan14102004@gmail.com", {
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent page refresh
+fetch("https://formsubmit.co/ajax/ba3716d5a03e254094b30e484d499291", {
       method: "POST",
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
@@ -331,8 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(data => {
       status.textContent = "Thank you for your feedback!";
-      message.value = '';
-      email.value = '';
+      form.reset(); // Clear all form fields
     })
     .catch(error => {
       status.textContent = "Oops! Something went wrong.";
