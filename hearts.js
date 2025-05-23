@@ -310,3 +310,56 @@ getReelThumbnail('https://www.instagram.com/reel/DICAu3GtZzO/')
   .then(url => console.log('Thumbnail URL:', url))
   .catch(console.error);
 
+
+
+// Feedback Form Submission
+document.addEventListener('DOMContentLoaded', function() {
+  const feedbackForm = document.getElementById('feedbackForm');
+  const responseMessage = document.getElementById('feedbackResponse');
+  
+  if (feedbackForm) {
+    feedbackForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const formSubmitToken = "ba3716d5a03e254094b30e484d499291"; // Your FormSubmit token
+      
+      // Show loading state
+      const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      
+      fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          message: formData.get('message'),
+          _subject: 'New Birthday Feedback ❤️',
+          _template: 'box'
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        responseMessage.textContent = 'Thank you for your lovely message! ❤️';
+        responseMessage.className = 'response-message success';
+        feedbackForm.reset();
+      })
+      .catch(error => {
+        responseMessage.textContent = 'Oops! Something went wrong. Please try again.';
+        responseMessage.className = 'response-message error';
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Love 💌';
+        setTimeout(() => {
+          responseMessage.style.display = 'none';
+        }, 5000);
+      });
+    });
+  }
+});
