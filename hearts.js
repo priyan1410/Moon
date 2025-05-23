@@ -305,7 +305,6 @@ async function getReelThumbnail(url) {
   return thumbnail;
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('feedbackForm');
   const message = document.getElementById('feedbackMessage');
@@ -314,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent page refresh
-fetch("https://formsubmit.co/ajax/ba3716d5a03e254094b30e484d499291", {
+    fetch("https://formsubmit.co/ajax/ba3716d5a03e254094b30e484d499291", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -337,3 +336,4 @@ fetch("https://formsubmit.co/ajax/ba3716d5a03e254094b30e484d499291", {
     });
   });
 });
+
