@@ -718,25 +718,24 @@
 </div>
 
 
-  <!-- Feedback Section -->
-<div class="feedback-section">
-  <h3>Your Thoughts Matter</h3>
-  <p>Leave a message and I'll cherish it forever ❤️</p>
-  <form id="feedbackForm" class="feedback-form">
-    <div class="form-group">
-      <label for="feedbackName">Your Name</label>
-      <input type="text" id="feedbackName" name="name" required>
-    </div>
-    <div class="form-group">
-      <label for="feedbackMessage">Your Message</label>
-      <textarea id="feedbackMessage" name="message" rows="4" required></textarea>
-    </div>
-    <button type="submit" class="submit-btn">Send Love 💌</button>
+<!-- Feedback Section -->
+<div class="container feedback-section">
+  <h2 class="birthday-title">Send Me Your Thoughts 💌</h2>
+  <form action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST" class="feedback-form">
+    <input type="hidden" name="_subject" value="New Feedback from Birthday Page!">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    
+    <textarea name="message" placeholder="Write your message here..." required></textarea>
+    <br>
+    <input type="text" name="name" placeholder="Your name (optional)">
+    <br>
+    <input type="email" name="email" placeholder="Your email (optional)">
+    <br>
+    <button type="submit" id="submitFeedback">Send Feedback</button>
   </form>
-  <div id="feedbackResponse" class="response-message"></div>
 </div>
 
-  
 
     <footer>
       <p>Made with ❤️ just for you</p>
