@@ -312,54 +312,65 @@ getReelThumbnail('https://www.instagram.com/reel/DICAu3GtZzO/')
 
 
 
-// Feedback Form Submission
+// Enhanced Feedback Form Submission
 document.addEventListener('DOMContentLoaded', function() {
   const feedbackForm = document.getElementById('feedbackForm');
   const responseMessage = document.getElementById('feedbackResponse');
   
   if (feedbackForm) {
-    feedbackForm.addEventListener('submit', function(e) {
+    feedbackForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const formData = new FormData(this);
-      const formSubmitToken = "ba3716d5a03e254094b30e484d499291"; // Your FormSubmit token
+      const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
       
       // Show loading state
-      const submitBtn = feedbackForm.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
+      responseMessage.style.display = 'none';
       
-      fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.get('name'),
-          message: formData.get('message'),
-          _subject: 'New Birthday Feedback ❤️',
-          _template: 'box'
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        responseMessage.textContent = 'Thank you for your lovely message! ❤️';
-        responseMessage.className = 'response-message success';
-        feedbackForm.reset();
-      })
-      .catch(error => {
-        responseMessage.textContent = 'Oops! Something went wrong. Please try again.';
+      try {
+        // Test endpoint first
+        const testResponse = await fetch('https://formsubmit.co/ajax/test');
+        if (!testResponse.ok) throw new Error('FormSubmit service unavailable');
+        
+        const response = await fetch(`https://formsubmit.co/ajax/ba3716d5a03e254094b30e484d499291`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: formData.get('name'),
+            message: formData.get('message'),
+            _subject: 'New Birthday Feedback ❤️',
+            _template: 'box',
+            _captcha: 'false', // Disable CAPTCHA for testing
+            _autoresponse: 'Thank you for your lovely message!', // Auto-reply
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+          responseMessage.textContent = 'Thank you! Your message has been sent. Check your email for confirmation.';
+          responseMessage.className = 'response-message success';
+          feedbackForm.reset();
+        } else {
+          throw new Error(data.message || 'Failed to send message');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        responseMessage.textContent = `Error: ${error.message}. Please try again or contact me directly.`;
         responseMessage.className = 'response-message error';
-        console.error('Error:', error);
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Love 💌';
-        setTimeout(() => {
-          responseMessage.style.display = 'none';
-        }, 5000);
-      });
-    });
-  }
-});
+        
+        // Fallback: Show mailto link
+        const mailtoLink = document.createElement('a');
+        mailtoLink.href = `mailto:your-email@example.com?subject=Birthday Feedback&body=${encodeURIComponent(
+          `Name: ${formData.get('name')}\n\nMessage: ${formData.get('message')}`
+        )}`;
+        mailtoLink.textContent = ' Click here to send manually';
+        mailtoLink.style.color = '#d23669';
+        mailtoLink.style.fontWeight = 'bold';
+        responseMessage.appendChild
