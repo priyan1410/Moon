@@ -572,3 +572,82 @@ canvas {
 
 
 
+.conclusion {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: rgba(255, 240, 243, 0.8); /* Soft pink background */
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(255, 140, 171, 0.3); /* Romantic shadow */
+  position: relative;
+  border: 1px solid #ffb3c6;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+}
+
+.conclusion::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px dashed #ff8fab;
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.conclusion p {
+  color: #5a3d3d; /* Soft dark color for readability */
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0;
+  position: relative;
+}
+
+/* Heart decorations */
+.conclusion::after {
+  content: "❤";
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+.conclusion::after:nth-of-type(1) {
+  top: -15px;
+  left: 20px;
+}
+
+.conclusion::after:nth-of-type(2) {
+  bottom: -15px;
+  right: 20px;
+}
+
+/* Animation for subtle movement */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+.conclusion {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .conclusion {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .conclusion p {
+    font-size: 1rem;
+  }
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil&display=swap');
+
+.conclusion {
+  font-family: 'Noto Sans Tamil', 'Arial', sans-serif;
+}
