@@ -77,6 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
   createBackgroundHearts(30);
   createConfetti(); // Add confetti for birthday
 });
+
+window.addEventListener('resize', () => {
+  setTimeout(arrangeRandomPhotos, 300); // Debounce slightly
+});
+
 function arrangeRandomPhotos() {
   const container = document.querySelector('.love-letter-wrapper');
   if (!container) return;
