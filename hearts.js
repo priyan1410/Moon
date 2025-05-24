@@ -86,8 +86,8 @@ function arrangeRandomPhotos() {
   const containerRect = container.getBoundingClientRect();
   const containerStyle = window.getComputedStyle(container);
   
-  // Account for container padding
-  const padding = 20;
+  // Account for container padding and border
+  const padding = 30; // Increased padding for better spacing
   const containerPaddingLeft = parseFloat(containerStyle.paddingLeft) || 0;
   const containerPaddingTop = parseFloat(containerStyle.paddingTop) || 0;
   const containerPaddingRight = parseFloat(containerStyle.paddingRight) || 0;
@@ -106,17 +106,24 @@ function arrangeRandomPhotos() {
         resolve();
       } else {
         img.onload = resolve;
-        img.onerror = resolve; // Handle broken images too
+        img.onerror = resolve;
       }
     });
   });
 
   Promise.all(loadPromises).then(() => {
-    photos.forEach(img => {
+    // Sort images by size (largest first) for better packing
+    const sortedPhotos = Array.from(photos).sort((a, b) => {
+      const aArea = a.clientWidth * a.clientHeight;
+      const bArea = b.clientWidth * b.clientHeight;
+      return bArea - aArea;
+    });
+
+    sortedPhotos.forEach(img => {
       img.style.width = 'auto';
       img.style.height = 'auto';
-      img.style.maxWidth = '400px';
-      img.style.maxHeight = '400px';
+      img.style.maxWidth = '300px'; // Reduced max size for better fit
+      img.style.maxHeight = '300px';
       
       const imgWidth = img.clientWidth;
       const imgHeight = img.clientHeight;
@@ -129,25 +136,32 @@ function arrangeRandomPhotos() {
       let randomLeft, randomTop;
       let rotation = -15 + Math.random() * 30;
 
-      while (!positionFound && attempts < 50) {
-        const maxLeft = availableWidth - imgWidth - padding;
-        const maxTop = availableHeight - imgHeight - padding;
+      // Calculate effective size considering rotation
+      const rotatedWidth = Math.abs(imgWidth * Math.cos(rotation * Math.PI / 180)) + 
+                          Math.abs(imgHeight * Math.sin(rotation * Math.PI / 180));
+      const rotatedHeight = Math.abs(imgWidth * Math.sin(rotation * Math.PI / 180)) + 
+                           Math.abs(imgHeight * Math.cos(rotation * Math.PI / 180));
+
+      while (!positionFound && attempts < 100) { // Increased attempts
+        const maxLeft = availableWidth - rotatedWidth - padding;
+        const maxTop = availableHeight - rotatedHeight - padding;
         
         // Ensure we don't go negative
         if (maxLeft < 0 || maxTop < 0) {
-          positionFound = true; // Skip this image if it's too big
-          break;
+          console.warn('Image too large for container:', img);
+          return; // Skip this image entirely if it's too big
         }
         
         randomLeft = containerPaddingLeft + padding + Math.random() * maxLeft;
         randomTop = containerPaddingTop + padding + Math.random() * maxTop;
         
         const collides = placedPhotos.some(placedPhoto => {
+          // Check collision with rotated bounds
           return (
             randomLeft < placedPhoto.right + padding &&
-            randomLeft + imgWidth + padding > placedPhoto.left &&
+            randomLeft + rotatedWidth + padding > placedPhoto.left &&
             randomTop < placedPhoto.bottom + padding &&
-            randomTop + imgHeight + padding > placedPhoto.top
+            randomTop + rotatedHeight + padding > placedPhoto.top
           );
         });
         
@@ -157,8 +171,8 @@ function arrangeRandomPhotos() {
           placedPhotos.push({
             left: randomLeft,
             top: randomTop,
-            right: randomLeft + imgWidth,
-            bottom: randomTop + imgHeight
+            right: randomLeft + rotatedWidth,
+            bottom: randomTop + rotatedHeight
           });
           
           img.style.position = 'absolute';
@@ -166,27 +180,19 @@ function arrangeRandomPhotos() {
           img.style.top = `${randomTop}px`;
           img.style.transform = `rotate(${rotation}deg)`;
           img.style.zIndex = Math.floor(Math.random() * 5);
+          img.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
         }
         
         attempts++;
       }
 
-      if (!positionFound && attempts >= 50) {
-        // If we couldn't find a position after 50 attempts, place it anyway
-        // but ensure it's within bounds
-        randomLeft = Math.max(containerPaddingLeft, Math.min(availableWidth - imgWidth, randomLeft || 0));
-        randomTop = Math.max(containerPaddingTop, Math.min(availableHeight - imgHeight, randomTop || 0));
-        
-        img.style.position = 'absolute';
-        img.style.left = `${randomLeft}px`;
-        img.style.top = `${randomTop}px`;
-        img.style.transform = `rotate(${rotation}deg)`;
-        img.style.zIndex = Math.floor(Math.random() * 5);
+      if (!positionFound) {
+        console.warn('Could not find non-overlapping position for:', img);
+        // Skip this image rather than forcing it
       }
     });
   });
 }
-
 
 
 // Email notification system for user activity
