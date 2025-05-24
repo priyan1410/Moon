@@ -76,89 +76,116 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener("DOMContentLoaded", () => {
   createBackgroundHearts(30);
   createConfetti(); // Add confetti for birthday
-});function arrangeRandomPhotos() {
+});
+function arrangeRandomPhotos() {
   const container = document.querySelector('.love-letter-wrapper');
+  if (!container) return;
+
+  // Wait for images to load
   const photos = document.querySelectorAll('.loveletter-bg-photos img');
   const containerRect = container.getBoundingClientRect();
-  const padding = 20; // Minimum space between photos
-  const placedPhotos = []; // Track placed photos for collision detection
+  const containerStyle = window.getComputedStyle(container);
+  
+  // Account for container padding
+  const padding = 20;
+  const containerPaddingLeft = parseFloat(containerStyle.paddingLeft) || 0;
+  const containerPaddingTop = parseFloat(containerStyle.paddingTop) || 0;
+  const containerPaddingRight = parseFloat(containerStyle.paddingRight) || 0;
+  const containerPaddingBottom = parseFloat(containerStyle.paddingBottom) || 0;
+  
+  // Calculate available space considering padding
+  const availableWidth = containerRect.width - containerPaddingLeft - containerPaddingRight;
+  const availableHeight = containerRect.height - containerPaddingTop - containerPaddingBottom;
+  
+  const placedPhotos = [];
 
-  photos.forEach(img => {
-    // Set initial dimensions (needed for collision detection)
-    img.style.width = 'auto';
-    img.style.height = 'auto';
-    img.style.maxWidth = '400px';
-    img.style.maxHeight = '400px';
-    
-    // Get actual image dimensions after setting styles
-    const imgWidth = img.clientWidth;
-    const imgHeight = img.clientHeight;
-    
-    let attempts = 0;
-    let positionFound = false;
-    let randomLeft, randomTop;
+  // First ensure all images are loaded
+  const loadPromises = Array.from(photos).map(img => {
+    return new Promise(resolve => {
+      if (img.complete) {
+        resolve();
+      } else {
+        img.onload = resolve;
+        img.onerror = resolve; // Handle broken images too
+      }
+    });
+  });
 
-    // Try to find a non-overlapping position (max 50 attempts)
-    while (!positionFound && attempts < 50) {
-      // Calculate max positions to keep images fully visible
-      const maxLeft = containerRect.width - imgWidth - padding;
-      const maxTop = containerRect.height - imgHeight - padding;
+  Promise.all(loadPromises).then(() => {
+    photos.forEach(img => {
+      img.style.width = 'auto';
+      img.style.height = 'auto';
+      img.style.maxWidth = '400px';
+      img.style.maxHeight = '400px';
       
-      // Random position within container bounds
-      randomLeft = padding + Math.random() * maxLeft;
-      randomTop = padding + Math.random() * maxTop;
+      const imgWidth = img.clientWidth;
+      const imgHeight = img.clientHeight;
       
-      // Random rotation (-15 to 15 degrees)
-      const rotation = -15 + Math.random() * 30;
+      // Skip if image failed to load or has no dimensions
+      if (imgWidth === 0 || imgHeight === 0) return;
       
-      // Check for collisions with existing photos
-      const collides = placedPhotos.some(placedPhoto => {
-        return (
-          randomLeft < placedPhoto.right + padding &&
-          randomLeft + imgWidth + padding > placedPhoto.left &&
-          randomTop < placedPhoto.bottom + padding &&
-          randomTop + imgHeight + padding > placedPhoto.top
-        );
-      });
-      
-      if (!collides) {
-        positionFound = true;
+      let attempts = 0;
+      let positionFound = false;
+      let randomLeft, randomTop;
+      let rotation = -15 + Math.random() * 30;
+
+      while (!positionFound && attempts < 50) {
+        const maxLeft = availableWidth - imgWidth - padding;
+        const maxTop = availableHeight - imgHeight - padding;
         
-        // Store this photo's position for future checks
-        placedPhotos.push({
-          left: randomLeft,
-          top: randomTop,
-          right: randomLeft + imgWidth,
-          bottom: randomTop + imgHeight
+        // Ensure we don't go negative
+        if (maxLeft < 0 || maxTop < 0) {
+          positionFound = true; // Skip this image if it's too big
+          break;
+        }
+        
+        randomLeft = containerPaddingLeft + padding + Math.random() * maxLeft;
+        randomTop = containerPaddingTop + padding + Math.random() * maxTop;
+        
+        const collides = placedPhotos.some(placedPhoto => {
+          return (
+            randomLeft < placedPhoto.right + padding &&
+            randomLeft + imgWidth + padding > placedPhoto.left &&
+            randomTop < placedPhoto.bottom + padding &&
+            randomTop + imgHeight + padding > placedPhoto.top
+          );
         });
         
-        // Apply styles
+        if (!collides) {
+          positionFound = true;
+          
+          placedPhotos.push({
+            left: randomLeft,
+            top: randomTop,
+            right: randomLeft + imgWidth,
+            bottom: randomTop + imgHeight
+          });
+          
+          img.style.position = 'absolute';
+          img.style.left = `${randomLeft}px`;
+          img.style.top = `${randomTop}px`;
+          img.style.transform = `rotate(${rotation}deg)`;
+          img.style.zIndex = Math.floor(Math.random() * 5);
+        }
+        
+        attempts++;
+      }
+
+      if (!positionFound && attempts >= 50) {
+        // If we couldn't find a position after 50 attempts, place it anyway
+        // but ensure it's within bounds
+        randomLeft = Math.max(containerPaddingLeft, Math.min(availableWidth - imgWidth, randomLeft || 0));
+        randomTop = Math.max(containerPaddingTop, Math.min(availableHeight - imgHeight, randomTop || 0));
+        
         img.style.position = 'absolute';
         img.style.left = `${randomLeft}px`;
         img.style.top = `${randomTop}px`;
         img.style.transform = `rotate(${rotation}deg)`;
-        
-        // Random z-index for layering
         img.style.zIndex = Math.floor(Math.random() * 5);
       }
-      
-      attempts++;
-    }
-
-    // If no position found after attempts, place it anyway (might overlap)
-    if (!positionFound) {
-      img.style.position = 'absolute';
-      img.style.left = `${randomLeft}px`;
-      img.style.top = `${randomTop}px`;
-      img.style.transform = `rotate(${rotation}deg)`;
-      img.style.zIndex = Math.floor(Math.random() * 5);
-    }
+    });
   });
 }
-// Call on load and window resize
-document.addEventListener("DOMContentLoaded", arrangeRandomPhotos);
-window.addEventListener('resize', arrangeRandomPhotos);
-
 
 
 
