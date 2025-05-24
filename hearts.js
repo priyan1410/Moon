@@ -352,12 +352,3 @@ getReelThumbnail('https://www.instagram.com/reel/DICAu3GtZzO/')
 
 
 
-  <script>
-  // Initialize all functions when DOM is loaded
-  document.addEventListener('DOMContentLoaded', function() {
-    createBackgroundHearts();
-    setupVideoControls();
-    arrangeRandomPhotos();
-    setupFeedbackForm(); // This will activate the form submission
-  });
-</script>
