@@ -571,7 +571,6 @@ canvas {
         }
 
 
-
 .conclusion {
   max-width: 600px;
   margin: 2rem auto;
@@ -646,8 +645,4 @@ canvas {
     font-size: 1rem;
   }
 }
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil&display=swap');
 
-.conclusion {
-  font-family: 'Noto Sans Tamil', 'Arial', sans-serif;
-}
