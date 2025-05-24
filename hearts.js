@@ -347,3 +347,17 @@ async function getReelThumbnail(url) {
 getReelThumbnail('https://www.instagram.com/reel/DICAu3GtZzO/')
   .then(url => console.log('Thumbnail URL:', url))
   .catch(console.error);
+
+
+
+
+
+  <script>
+  // Initialize all functions when DOM is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    createBackgroundHearts();
+    setupVideoControls();
+    arrangeRandomPhotos();
+    setupFeedbackForm(); // This will activate the form submission
+  });
+</script>
