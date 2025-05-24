@@ -455,6 +455,12 @@ html, body {
 
 .love-letter-wrapper {
   position: relative;
+  overflow: hidden; /* Prevents any overflow */
+  background-color: #fff9fa; /* Light background to contrast with photos */
+}
+
+.love-letter-wrapper {
+  position: relative;
   max-width: 800px;
   margin: 40px auto;
   border-radius: 20px;
