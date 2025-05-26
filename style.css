@@ -740,14 +740,13 @@ canvas {
 .reel-thumbnails {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 10px;
   margin: 20px 0;
 }
 
 .reel-thumbnails img {
-  width: 60px;
-  height: 90px;
+  width: 90px;
+  height: 135px;
   object-fit: cover;
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 50, 0.3);
