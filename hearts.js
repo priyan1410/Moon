@@ -175,3 +175,4 @@ document.addEventListener('visibilitychange', () => {
   active = !document.hidden;
   if (active) lastActivityTime = Date.now();
 });
+
