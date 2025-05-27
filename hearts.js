@@ -110,7 +110,8 @@ function arrangeRandomPhotos() {
 }
 
 // ------------------ Email Tracking ------------------
-const lastActivityTime = Date.now();
+let sessionStartTime = Date.now();  // Keep this fixed for duration
+let lastActivityTime = Date.now();  // Reset this on user interaction
 let emailInterval;
 let active = true;
 
@@ -126,7 +127,7 @@ function sendActivityEmail() {
 
   const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
   const userName = localStorage.getItem('userName') || 'Anonymous User';
-  const duration = Math.floor((Date.now() - lastActivityTime) / 60000);
+  const duration = Math.floor((Date.now() - sessionStartTime) / 60000); // use sessionStartTime here
 
   fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
     method: 'POST',
@@ -137,7 +138,7 @@ function sendActivityEmail() {
     body: JSON.stringify({
       name: "User Activity Tracker",
       _subject: `❤️ ${userName} is still on your site`,
-      message: `${userName} has been active for ${duration} minutes (since ${new Date(lastActivityTime).toLocaleTimeString()})`,
+      message: `${userName} has been active for ${duration} minutes (since ${new Date(sessionStartTime).toLocaleTimeString()})`,
       _template: "table"
     })
   })
@@ -147,11 +148,16 @@ function sendActivityEmail() {
 }
 
 function startActivityMonitor() {
+  sessionStartTime = Date.now(); // reset on new session
+  lastActivityTime = Date.now();
   sendActivityEmail();
+  
   emailInterval = setInterval(sendActivityEmail, 5 * 60 * 1000);
 
   ['mousemove', 'click', 'scroll', 'keypress'].forEach(event => {
-    document.addEventListener(event, () => lastActivityTime = Date.now());
+    document.addEventListener(event, () => {
+      lastActivityTime = Date.now();
+    });
   });
 }
 
