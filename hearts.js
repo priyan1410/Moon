@@ -110,7 +110,7 @@ function arrangeRandomPhotos() {
 }
 
 // ------------------ Email Tracking ------------------
-let lastActivityTime = Date.now();
+const lastActivityTime = Date.now();
 let emailInterval;
 let active = true;
 
