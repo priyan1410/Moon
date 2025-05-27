@@ -110,13 +110,14 @@ function arrangeRandomPhotos() {
 }
 
 // ------------------ Email Tracking ------------------
-let sessionStartTime = Date.now();  // Keep this fixed for duration
-let lastActivityTime = Date.now();  // Reset this on user interaction
+let sessionStartTime = Date.now(); // when the user entered
+let lastActivityTime = Date.now(); // last time user interacted
 let emailInterval;
 let active = true;
 
 function checkActivity() {
-  return (Date.now() - lastActivityTime) < 300000; // 5 minutes
+  // If user has interacted in last 5 minutes, they are active
+  return (Date.now() - lastActivityTime) < 5 * 60 * 1000;
 }
 
 function sendActivityEmail() {
@@ -127,7 +128,7 @@ function sendActivityEmail() {
 
   const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
   const userName = localStorage.getItem('userName') || 'Anonymous User';
-  const duration = Math.floor((Date.now() - sessionStartTime) / 60000); // use sessionStartTime here
+  const duration = Math.floor((Date.now() - sessionStartTime) / 60000); // minutes since entry
 
   fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
     method: 'POST',
@@ -143,17 +144,21 @@ function sendActivityEmail() {
     })
   })
   .then(res => res.json())
-  .then(data => console.log("Activity email sent:", data))
-  .catch(err => console.error("Email error:", err));
+  .then(data => console.log("✅ Activity email sent:", data))
+  .catch(err => console.error("❌ Email error:", err));
 }
 
 function startActivityMonitor() {
-  sessionStartTime = Date.now(); // reset on new session
+  // Set the initial values
+  sessionStartTime = Date.now();
   lastActivityTime = Date.now();
-  sendActivityEmail();
-  
+
+  sendActivityEmail(); // initial ping
+
+  // Repeat every 5 minutes
   emailInterval = setInterval(sendActivityEmail, 5 * 60 * 1000);
 
+  // On any interaction, update lastActivityTime
   ['mousemove', 'click', 'scroll', 'keypress'].forEach(event => {
     document.addEventListener(event, () => {
       lastActivityTime = Date.now();
@@ -164,6 +169,16 @@ function startActivityMonitor() {
 function stopActivityMonitor() {
   clearInterval(emailInterval);
 }
+
+// Optional: mark user inactive when they switch tabs
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    active = false;
+  } else {
+    active = true;
+    lastActivityTime = Date.now(); // treat tab switch back as activity
+  }
+});
 
 // ------------------ Init on Page Load ------------------
 document.addEventListener("DOMContentLoaded", () => {
