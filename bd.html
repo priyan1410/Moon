@@ -364,12 +364,16 @@
         <br>
         <br>
         (27.05.2025) pesalam nu ph panna nalla than pesitu irruntha innaikuthan konjam ah stars lam theriuuthu ana nilathan theriyala nilava pathe romba nal aaguthunu sonna na sonna "na nilava(you) nethuthana pathe" nu sonna theva illama pesathanu kova padura. ni ippadi mara ennathan reason oh theriyala, aprom enaga akka va pathi sollitu irrukurapo "theva illama asaiya valathukatha no solla oru chinna vizhiyam kedachalum na no than solluven so ennaiya nambbatha" nu soldra, hey ni ippadilam pesurathuku pesama enaku unnaiya pudikalanu sollitu poidudi. apaiyathu seri avaluku pidikalanu nanachitu nanum poituren.
-        varthaiyala koldra. na apa sirichututjan ketutu irunthen ana enaku kastama than irruku🥺. en konja nala olunga pesa matranu keta nithana annaiku pakalanu sonna athan enaku trigger aaitu nu soldra. athuku aprom pakka try panna, mudiyala. athu onaku puriya matuthu😒. 
+        varthaiyala koldra. na apa sirichututhan ketutu irunthen ana enaku kastama than irruku🥺. en konja nala olunga pesa matranu keta nithana annaiku pakalanu sonna athan enaku trigger aaitu nu soldra. athuku aprom pakka try panna, mudiyala. athu onaku puriya matuthu😒. 
          <br>
         <br>
         <br>
         ni ippadi pesurathulam unamiyathan pesuviya, illa ivan evalothan thanguranu pakalamnu pesuviya, illa enna pannalum thirupi thirupi varanu nu pannuviya?🤷🏻‍♂️ ennaiya intha mari text la polamba vachitiye di😒. inga paru enaku en azhmanasu solluthu namma senthuduvom nu athunalathan ni evalo kasta paduthunalum na evalu kasta pattalum na unna vittu poga matren.
         na mudivu panniten. ni enaku kedaika ini vaipe illandra stagevara na unna love pannituthan irrupen. athu vara vera ponna pakavum maten kalyanamum pannamaten athu 25 ah irrunthalum seri 30 ah irrunthalum seri.
+        <br>
+        <br>
+        <br>
+        (28.05.2025) aai theva illama pesathanu sonnathu enaku innum oru mari irruku😣. nethu ni ph la pesuna ellame enaku kastamathan irruku. na onnu sollava, na normal ah irrunthu ethanal aaguthu theriuuma🥺. onaku pudikalana kuda solitu poitu but pls ippadi konjam konjam ah pesi pesi kasta paduthatha. nal aga aga unaku ennaiya pudikamathan poitu iruku ana athu en nu enaku theriyala.
 
       </p>
     </div>
@@ -826,6 +830,16 @@
   </p>
 </div>
 
+<div class="feedback-form">
+  <h3>One last question...</h3>
+  <p>unmaiyave onkau ennaiya pudikuma?</p>
+  <div class="form-group">
+    <button id="yesFutureBtn" class="response-btn">Yes</button>
+    <button id="noFutureBtn" class="response-btn">No</button>
+  </div>
+  <div id="feedbackStatus"></div>
+</div>
+
 
     <footer>
       <p>Made with ❤️ just for you</p>
@@ -924,5 +938,53 @@
     }
   </script>
   
+<script>
+  const yesFutureBtn = document.getElementById('yesFutureBtn');
+  const noFutureBtn = document.getElementById('noFutureBtn');
+  const feedbackStatus = document.getElementById('feedbackStatus');
+  const userName = localStorage.getItem('userName') || 'Someone special';
+
+  function sendResponse(response) {
+    const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
+    
+    fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: "Future Question Response",
+        _subject: `❤️ ${userName} answered: ${response}`,
+        message: `${userName} responded "${response}" to the future question on ${new Date().toLocaleString()}`,
+        _template: "table"
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      feedbackStatus.textContent = "Thank you for your answer! ❤️";
+      setTimeout(() => {
+        feedbackStatus.textContent = "";
+      }, 3000);
+    })
+    .catch(err => {
+      feedbackStatus.textContent = "Failed to send response, but I got your answer!";
+      console.error("Response error:", err);
+    });
+  }
+
+  yesFutureBtn.addEventListener('click', () => {
+    sendResponse("Yes");
+    yesFutureBtn.disabled = true;
+    noFutureBtn.disabled = true;
+  });
+
+  noFutureBtn.addEventListener('click', () => {
+    sendResponse("No");
+    yesFutureBtn.disabled = true;
+    noFutureBtn.disabled = true;
+  });
+</script>
+
 </body>
 </html>
