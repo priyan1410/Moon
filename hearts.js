@@ -197,3 +197,41 @@ document.addEventListener('visibilitychange', () => {
   if (active) lastActivityTime = Date.now();
 });
 
+
+
+
+
+
+function sendUserMessage() {
+  const message = document.getElementById("userMessage").value.trim();
+  const userName = localStorage.getItem("userName") || "Anonymous";
+  const token = "ba3716d5a03e254094b30e484d499291"; // same token
+
+  if (message === "") {
+    alert("Please write a message first!");
+    return;
+  }
+
+  fetch(`https://formsubmit.co/ajax/${token}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: userName,
+      _subject: `💬 Message from ${userName}`,
+      message: message,
+      _template: "table"
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert("Message sent successfully!");
+    document.getElementById("userMessage").value = ""; // Clear textarea
+  })
+  .catch(error => {
+    alert("Failed to send message.");
+    console.error("Email error:", error);
+  });
+}
