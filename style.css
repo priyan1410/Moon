@@ -822,7 +822,9 @@ canvas {
 }
 */
 
-
+.message-box p{
+  font-family: Arial, Helvetica, sans-serif;
+}
 .message-box {
   margin-top: 40px;
   padding: 20px;
