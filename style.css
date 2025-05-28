@@ -768,3 +768,55 @@ canvas {
   transform: scale(1.05);
   box-shadow: 0 15px 25px rgba(255, 105, 180, 0.5);
 }
+
+
+
+
+.feedback-form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.feedback-form h3 {
+  color: #d23669;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.feedback-form p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #5a3d3d;
+}
+
+.response-btn {
+  background-color: #ff6b8b;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 15px;
+  box-shadow: 0 4px 8px rgba(255, 107, 139, 0.3);
+}
+
+.response-btn:hover {
+  background-color: #ff4757;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 107, 139, 0.4);
+}
+
+#feedbackStatus {
+  margin-top: 15px;
+  text-align: center;
+  color: #d23669;
+  font-size: 0.9em;
+  min-height: 20px;
+}
