@@ -861,3 +861,33 @@ canvas {
 .message-box button:hover {
   background-color: #e055a1;
 }
+
+
+
+
+
+
+.ig-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  color: white;
+  text-decoration: none;
+  font-family: 'Helvetica', Arial, sans-serif;
+  font-weight: bold;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-top: 50px;
+}
+
+.ig-highlight:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.ig-icon {
+  font-size: 1.2em;
+}
