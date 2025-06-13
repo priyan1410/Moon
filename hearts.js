@@ -300,8 +300,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let currentIndex = 0;
   
-  function updateSliderImage() {
-    const currentThumbnail = thumbnails[currentIndex];
+function updateSliderImage() {
+  const currentThumbnail = thumbnails[currentIndex];
   const sliderImage = document.getElementById('sliderImage');
   const sliderVideo = document.getElementById('sliderVideo');
   const videoSource = sliderVideo.querySelector('source');
@@ -317,12 +317,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // It's an image
     sliderImage.src = currentThumbnail.querySelector('img').src;
     sliderImage.style.display = 'block';
-    resetZoom(); // Reset zoom for images
   } else if (currentThumbnail.querySelector('video')) {
     // It's a video
     videoSource.src = currentThumbnail.querySelector('video').querySelector('source').src;
     sliderVideo.load();
     sliderVideo.style.display = 'block';
+    sliderVideo.play().catch(e => console.log("Autoplay prevented:", e));
   }
 }
 
