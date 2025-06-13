@@ -1018,3 +1018,13 @@ canvas {
 .lightbox-slider video[style*="display: block"] ~ .zoom-controls {
   display: none;
 }
+.lightbox-slider video {
+  max-width: 90%;
+  max-height: 80vh;
+  background: #000;
+  border-radius: 8px;
+}
+
+.lightbox-slider video::-webkit-media-controls {
+  display: flex !important;
+}
