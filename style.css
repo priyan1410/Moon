@@ -891,3 +891,130 @@ canvas {
 .ig-icon {
   font-size: 1.2em;
 }
+
+
+
+/* Lightbox Slider Styles */
+.lightbox-slider {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add these styles to your existing lightbox-slider styles */
+.lightbox-slider img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.25s ease;
+  transform-origin: center center;
+  cursor: grab;
+  touch-action: none; /* Important for touch zoom */
+}
+
+.lightbox-slider img.grabbing {
+  cursor: grabbing;
+}
+
+.lightbox-slider img.zoomed {
+  cursor: move;
+}
+
+.zoom-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+}
+
+.zoom-btn {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoom-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 60px;
+  cursor: pointer;
+  padding: 20px;
+  user-select: none;
+}
+
+.nav-btn.left {
+  left: 20px;
+}
+
+.nav-btn.right {
+  right: 20px;
+}
+
+/* Add this to make thumbnails clickable */
+.thumbnail {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.media-container {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-slider img,
+.lightbox-slider video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+  transform-origin: center center;
+}
+
+.lightbox-slider video {
+  background-color: black;
+}
+
+/* Hide zoom controls when video is playing */
+.lightbox-slider video[style*="display: block"] ~ .zoom-controls {
+  display: none;
+}
