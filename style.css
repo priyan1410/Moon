@@ -861,3 +861,40 @@ canvas {
 .message-box button:hover {
   background-color: #e055a1;
 }
+
+
+.ig-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f09433;
+  background-image: linear-gradient(315deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  margin-top: 30px;
+}
+
+.ig-highlight:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.ig-icon {
+  font-size: 1.2rem;
+}
+@media (max-width: 480px) {
+  .ig-highlight {
+    font-size: 0.95rem;
+    padding: 8px 14px;
+  }
+
+  .ig-icon {
+    font-size: 1rem;
+  }
+}
