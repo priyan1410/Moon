@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Welcome</title>
@@ -15,6 +16,7 @@
       height: 100vh;
       margin: 0;
     }
+
     .box {
       text-align: center;
       background: rgba(255, 255, 255, 0.1);
@@ -23,6 +25,7 @@
       backdrop-filter: blur(5px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
+
     button {
       margin: 10px;
       padding: 10px 20px;
@@ -34,9 +37,11 @@
       color: white;
       transition: background 0.3s;
     }
+
     button:hover {
       background: #ffffff55;
     }
+
     input {
       margin-top: 15px;
       padding: 10px;
@@ -46,21 +51,27 @@
       width: 200px;
       display: none;
     }
+
     .name-input {
       display: none;
     }
+
     .passcode-input {
       display: none;
     }
+
     .message {
       margin-bottom: 20px;
     }
   </style>
 </head>
+
 <body>
   <div class="box">
     <div class="message" id="mainMessage">
-      <h1>Happiest Birthday Charumaaaa😊🎉. enaku theriyala ni itha pakurapa namba eppadi irrupomnu. ulla namma memories um en polambalum than irruku😅. alteast 2hr aagum but pls enakaga oru time aachum intha website ah full ah pathudu.</h1>
+      <h1>Happiest Birthday Charumaaaa😊🎉. enaku theriyala ni itha pakurapa namba eppadi irrupomnu. ulla namma memories
+        um en polambalum than irruku😅. alteast 2hr aagum but pls enakaga oru time aachum intha website ah full ah
+        pathudu.</h1>
     </div>
     <div id="buttonContainer">
       <button id="yesBtn">Yes</button>
@@ -70,78 +81,79 @@
     <input type="password" id="passcodeInput" class="passcode-input" placeholder="Enter passcode">
   </div>
 
-<script>
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const passcodeInput = document.getElementById('passcodeInput');
-  const nameInput = document.getElementById('nameInput');
-  const mainMessage = document.getElementById('mainMessage');
-  const buttonContainer = document.getElementById('buttonContainer');
-  const correctPasscode = "15551"; // Your passcode
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const passcodeInput = document.getElementById('passcodeInput');
+    const nameInput = document.getElementById('nameInput');
+    const mainMessage = document.getElementById('mainMessage');
+    const buttonContainer = document.getElementById('buttonContainer');
+    const correctPasscode = "15551"; // Your passcode
 
-  yesBtn.addEventListener('click', () => {
-    // Hide buttons and show name input
-    buttonContainer.style.display = 'none';
-    mainMessage.innerHTML = "<h2>First, tell me your name 😊</h2>";
-    nameInput.style.display = 'inline-block';
-    nameInput.focus();
-  });
+    yesBtn.addEventListener('click', () => {
+      // Hide buttons and show name input
+      buttonContainer.style.display = 'none';
+      mainMessage.innerHTML = "<h2>First, tell me your name 😊</h2>";
+      nameInput.style.display = 'inline-block';
+      nameInput.focus();
+    });
 
-  nameInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const userName = nameInput.value.trim();
-      if (userName !== '') {
-        // Hide name input and show passcode input
-        nameInput.style.display = 'none';
-        mainMessage.innerHTML = `<h2>Hi ${userName}! Now enter the passcode 🔒</h2>`;
-        passcodeInput.style.display = 'inline-block';
-        passcodeInput.focus();
-      } else {
-        alert("Please enter your name first!");
+    nameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const userName = nameInput.value.trim();
+        if (userName !== '') {
+          // Hide name input and show passcode input
+          nameInput.style.display = 'none';
+          mainMessage.innerHTML = `<h2>Hi ${userName}! Now enter the passcode 🔒</h2>`;
+          passcodeInput.style.display = 'inline-block';
+          passcodeInput.focus();
+        } else {
+          alert("Please enter your name first!");
+        }
       }
-    }
-  });
+    });
 
-  passcodeInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    if (passcodeInput.value === correctPasscode) {
-      // Store the name for use on bd.html
-      localStorage.setItem('userName', nameInput.value.trim());
-      sendEmailNotification(nameInput.value.trim());
-      window.location.href = 'bd.html';
-    } else {
-      alert("Wrong passcode 😢 Try again!");
-      passcodeInput.value = '';
-    }
-  }
-});
+    passcodeInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        if (passcodeInput.value === correctPasscode) {
+          // Store the name for use on bd.html
+          localStorage.setItem('userName', nameInput.value.trim());
+          sendEmailNotification(nameInput.value.trim());
+          window.location.href = 'bd.html';
+        } else {
+          alert("Wrong passcode 😢 Try again!");
+          passcodeInput.value = '';
+        }
+      }
+    });
 
-  noBtn.addEventListener('click', () => {
-    document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
-  });
+    noBtn.addEventListener('click', () => {
+      document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
+    });
 
-  function sendEmailNotification(userName) {
-    // Replace with the token from FormSubmit's activation email
-    const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
+    function sendEmailNotification(userName) {
+      // Replace with the token from FormSubmit's activation email
+      const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
 
-    fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        name: "Birthday Website Access",
-        _subject: "🎉 Someone entered the passcode!",
-        message: `${userName} entered the correct passcode at ${new Date().toLocaleString()}`,
-        _replyto: "noreply@yourwebsite.com", // Optional
-        _template: "table" // Makes the email look nicer
+      fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: "Birthday Website Access",
+          _subject: "🎉 Someone entered the passcode!",
+          message: `${userName} entered the correct passcode at ${new Date().toLocaleString()}`,
+          _replyto: "noreply@yourwebsite.com", // Optional
+          _template: "table" // Makes the email look nicer
+        })
       })
-    })
-    .then(response => response.json())
-    .then(data => console.log("Email sent!", data))
-    .catch(error => console.error("Error:", error));
-  }
-</script>  
+        .then(response => response.json())
+        .then(data => console.log("Email sent!", data))
+        .catch(error => console.error("Error:", error));
+    }
+  </script>
 </body>
+
 </html>
