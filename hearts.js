@@ -132,7 +132,7 @@ function sendActivityEmail() {
 
   fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
     method: 'POST',
-    headers: { 
+    headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
@@ -143,9 +143,9 @@ function sendActivityEmail() {
       _template: "table"
     })
   })
-  .then(res => res.json())
-  .then(data => console.log("✅ Activity email sent:", data))
-  .catch(err => console.error("❌ Email error:", err));
+    .then(res => res.json())
+    .then(data => console.log("✅ Activity email sent:", data))
+    .catch(err => console.error("❌ Email error:", err));
 }
 
 function startActivityMonitor() {
@@ -225,13 +225,13 @@ function sendUserMessage() {
       _template: "table"
     })
   })
-  .then(response => response.json())
-  .then(data => {
-    alert("Message sent successfully!");
-    document.getElementById("userMessage").value = ""; // Clear textarea
-  })
-  .catch(error => {
-    alert("Failed to send message.");
-    console.error("Email error:", error);
-  });
+    .then(response => response.json())
+    .then(data => {
+      alert("Message sent successfully!");
+      document.getElementById("userMessage").value = ""; // Clear textarea
+    })
+    .catch(error => {
+      alert("Failed to send message.");
+      console.error("Email error:", error);
+    });
 }
