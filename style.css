@@ -76,13 +76,33 @@ h1 {
 }
 
 @keyframes rainbow-border {
-  0% { box-shadow: 0 0 15px #ff0000; }
-  16% { box-shadow: 0 0 15px #ff7f00; }
-  33% { box-shadow: 0 0 15px #ffff00; }
-  50% { box-shadow: 0 0 15px #00ff00; }
-  66% { box-shadow: 0 0 15px #0000ff; }
-  83% { box-shadow: 0 0 15px #4b0082; }
-  100% { box-shadow: 0 0 15px #9400d3; }
+  0% {
+    box-shadow: 0 0 15px #ff0000;
+  }
+
+  16% {
+    box-shadow: 0 0 15px #ff7f00;
+  }
+
+  33% {
+    box-shadow: 0 0 15px #ffff00;
+  }
+
+  50% {
+    box-shadow: 0 0 15px #00ff00;
+  }
+
+  66% {
+    box-shadow: 0 0 15px #0000ff;
+  }
+
+  83% {
+    box-shadow: 0 0 15px #4b0082;
+  }
+
+  100% {
+    box-shadow: 0 0 15px #9400d3;
+  }
 }
 
 /* Custom Music Player Styles */
@@ -169,6 +189,7 @@ footer {
     transform: translateY(0) rotate(0deg);
     opacity: 1;
   }
+
   100% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
@@ -217,9 +238,11 @@ footer {
 /* Floating Hearts Animation - Background Only */
 .heart-back {
   position: fixed;
-  z-index: -1; /* Behind all content */
+  z-index: -1;
+  /* Behind all content */
   pointer-events: none;
-  filter: blur(1px); /* Soften the appearance */
+  filter: blur(1px);
+  /* Soften the appearance */
 }
 
 @keyframes float-background {
@@ -227,9 +250,11 @@ footer {
     transform: translateY(0) translateX(0) rotate(0deg);
     opacity: 0;
   }
+
   20% {
     opacity: var(--heart-opacity, 0.7);
   }
+
   100% {
     transform: translateY(-120vh) translateX(var(--x-movement, 0)) rotate(360deg);
     opacity: 0;
@@ -254,7 +279,8 @@ body::before {
 }
 
 /* Ensure full page is scroll-free and supports animation layering */
-html, body {
+html,
+body {
   height: 100%;
   overflow-x: hidden;
   margin: 0;
@@ -274,7 +300,8 @@ body::before {
   pointer-events: none;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   overflow-x: hidden;
 }
@@ -335,11 +362,13 @@ html, body {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
   }
 }
+
 .gallery-video {
   width: 180px;
   height: 270px;
@@ -354,6 +383,7 @@ html, body {
   z-index: 10;
   box-shadow: 0 10px 20px rgba(0, 0, 100, 0.35);
 }
+
 .lightbox-video {
   max-width: 90%;
   max-height: 80%;
@@ -361,14 +391,16 @@ html, body {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
   animation: fadeIn 0.3s ease-in-out;
 }
+
 .lightbox-slider {
   display: none;
   position: fixed;
   z-index: 999;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0, 0, 0, 0.9);
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -378,7 +410,7 @@ html, body {
   max-width: 90%;
   max-height: 80%;
   border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255,255,255,0.4);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 .nav-btn {
@@ -392,8 +424,13 @@ html, body {
   user-select: none;
 }
 
-.left { left: 20px; }
-.right { right: 20px; }
+.left {
+  left: 20px;
+}
+
+.right {
+  right: 20px;
+}
 
 .close-btn {
   position: absolute;
@@ -427,7 +464,7 @@ html, body {
   color: #d23669;
   font-size: 2.2em;
   margin-bottom: 15px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .birthday-message {
@@ -441,6 +478,7 @@ html, body {
     transform: scale(1);
     box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
   }
+
   100% {
     transform: scale(1.01);
     box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
@@ -448,9 +486,12 @@ html, body {
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-15px);
   }
@@ -458,8 +499,10 @@ html, body {
 
 .love-letter-wrapper {
   position: relative;
-  overflow: hidden; /* Prevents any overflow */
-  background-color: #fff9fa; /* Light background to contrast with photos */
+  overflow: hidden;
+  /* Prevents any overflow */
+  background-color: #fff9fa;
+  /* Light background to contrast with photos */
 }
 
 .love-letter-wrapper {
@@ -469,13 +512,15 @@ html, body {
   border-radius: 20px;
   overflow: hidden;
   min-height: 600px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
+
 .love-letter {
   font-family: Caroni, sans-serif;
   text-align: justify;
   line-height: 1.8;
 }
+
 .loveletter-bg-photos {
   position: absolute;
   top: 0;
@@ -493,7 +538,7 @@ html, body {
   opacity: 0.40;
   transition: all 0.3s ease;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   filter: brightness(1.05);
 }
 
@@ -501,13 +546,13 @@ html, body {
   position: relative;
   z-index: 2;
   padding: 30px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(2px);
   border-radius: 20px;
   color: #2c3e50;
   font-size: 1.05em;
   line-height: 1.8;
-  text-shadow: 0 0 2px rgba(255,255,255,0.5);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
 .loveletter-bg-photos img:hover {
@@ -550,7 +595,7 @@ html, body {
   border-radius: 30px;
   font-size: 1em;
   font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   text-align: center;
   width: 100%;
@@ -562,7 +607,7 @@ html, body {
 
 .reel-link:hover {
   transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
 
 
@@ -571,22 +616,24 @@ html, body {
 
 
 canvas {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, .2);
-        }
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .2);
+}
 
 
 .conclusion {
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: rgba(255, 240, 243, 0.8); /* Soft pink background */
+  background-color: rgba(255, 240, 243, 0.8);
+  /* Soft pink background */
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(255, 140, 171, 0.3); /* Romantic shadow */
+  box-shadow: 0 4px 15px rgba(255, 140, 171, 0.3);
+  /* Romantic shadow */
   position: relative;
   border: 1px solid #ffb3c6;
   font-family: 'Arial', sans-serif;
@@ -607,7 +654,8 @@ canvas {
 }
 
 .conclusion p {
-  color: #5a3d3d; /* Soft dark color for readability */
+  color: #5a3d3d;
+  /* Soft dark color for readability */
   font-size: 1.1rem;
   text-align: center;
   margin: 0;
@@ -634,9 +682,17 @@ canvas {
 
 /* Animation for subtle movement */
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .conclusion {
@@ -649,7 +705,7 @@ canvas {
     margin: 1rem;
     padding: 1.5rem;
   }
-  
+
   .conclusion p {
     font-size: 1rem;
   }
@@ -822,9 +878,10 @@ canvas {
 }
 */
 
-.message-box p{
+.message-box p {
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .message-box {
   margin-top: 40px;
   padding: 20px;
@@ -843,7 +900,7 @@ canvas {
   border-radius: 10px;
   border: 1px solid #ccc;
   resize: vertical;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .message-box button {
@@ -876,18 +933,19 @@ canvas {
   font-weight: 600;
   font-size: 1rem;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   margin-top: 30px;
 }
 
 .ig-highlight:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .ig-icon {
   font-size: 1.2rem;
 }
+
 @media (max-width: 480px) {
   .ig-highlight {
     font-size: 0.95rem;
