@@ -1,150 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Apology</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #f8cdda, #1d2b64);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .apology-box {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px;
-      border-radius: 15px;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
-    }
-    button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background: #ffffff33;
-      color: white;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #ffffff55;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      margin: 20px 0;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      font-size: 1em;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-    }
-    textarea::placeholder {
-      color: rgba(255, 255, 255, 0.7);
-    }
-    .heart {
-      position: absolute;
-      pointer-events: none;
-      animation: float 5s ease-in-out infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #f8cdda, #1d2b64);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .apology-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .apology-text {
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #forgiveBtn, #forgive2 {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #forgiveBtn:hover, #forgive2:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        #notForgiveBtn, #notForgive2 {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #notForgiveBtn:hover, #notForgive2:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            transform: rotate(45deg);
+            animation: float 5s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: rotate(45deg) translateY(0);
+            }
+            50% {
+                transform: rotate(45deg) translateY(-20px);
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <div class="apology-box">
-    <h1>I Need Your Apology</h1>
-    <p>Before we continue, I need to know you're truly sorry for whatever happened between us.</p>
-    <p>Please write a sincere apology below:</p>
-    
-    <textarea id="apologyText" placeholder="Write your apology here..."></textarea>
-    
-    <div>
-      <button id="submitApology">Submit Apology</button>
-      <button id="refuseBtn">I Won't Apologize</button>
+    <div class="apology-box">
+        <h1>I Need to Apologize</h1>
+        <div class="apology-text">
+            <p>Charumaaaa, I know I've made mistakes and hurt you, and for that I'm truly sorry.</p>
+            <p>Every moment without you feels empty, and I realize now how much you mean to me.</p>
+            <p>I've been reflecting on everything, and I want you to know that I'm committed to being better.</p>
+            <p>pls unnoda ego vaium kovathaium vittu enaku oru chance kudu😓</p>
+        </div>
+        <div class="buttons">
+            <button id="forgiveBtn">I Forgive You ❤️</button>
+            <button id="notForgiveBtn">Not Yet 💔</button>
+        </div>
     </div>
-  </div>
 
-  <script>
-    // Create floating hearts
-    function createHearts() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (3 + Math.random() * 5) + "s";
-      heart.style.fontSize = (10 + Math.random() * 20) + "px";
-      document.body.appendChild(heart);
-      
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
-    }
-    
-    // Create initial hearts
-    for (let i = 0; i < 10; i++) {
-      setTimeout(createHearts, i * 300);
-    }
-    
-    // Continue creating hearts periodically
-    setInterval(createHearts, 1000);
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const colors = ['#ff6b6b', '#ff8e8e', '#ffaaaa', '#ffc4c4'];
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.animationDuration = 3 + Math.random() * 7 + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.opacity = 0.3 + Math.random() * 0.7;
+                heart.style.setProperty('--heart-color', colors[Math.floor(Math.random() * colors.length)]);
+                document.body.appendChild(heart);
+            }
+        }
 
-    // Handle button clicks
-    document.getElementById('submitApology').addEventListener('click', () => {
-      const apology = document.getElementById('apologyText').value.trim();
-      if (apology === '') {
-        alert("Please write an apology first!");
-        return;
-      }
-      
-      // Store the apology
-      localStorage.setItem('userApology', apology);
-      
-      // Send the apology via email
-      sendApologyEmail(apology);
-      
-      // Redirect to bd.html
-      window.location.href = 'bd.html';
-    });
-    
-    document.getElementById('refuseBtn').addEventListener('click', () => {
-      alert("I'm sorry you feel that way. Maybe another time.");
-      window.location.href = 'index.html';
-    });
-    
-    function sendApologyEmail(apology) {
-      const userName = localStorage.getItem('userName') || 'Anonymous';
-      const token = "ba3716d5a03e254094b30e484d499291";
-      
-      fetch(`https://formsubmit.co/ajax/${token}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: "Apology Received",
-          _subject: `💔 Apology from ${userName}`,
-          message: `${userName} wrote:\n\n${apology}`,
-          _template: "table"
-        })
-      })
-      .then(response => response.json())
-      .then(data => console.log("Apology email sent:", data))
-      .catch(error => console.error("Error sending apology:", error));
-    }
-  </script>
+        // Send email notification
+        function sendResponse(response) {
+            const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
+            const userName = localStorage.getItem('userName') || 'Anonymous';
+
+            fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: "Apology Response",
+                    _subject: `💌 ${userName} responded: ${response}`,
+                    message: `${userName} clicked "${response}" on the apology page at ${new Date().toLocaleString()}`,
+                    _template: "table"
+                })
+            })
+                .then(res => res.json())
+                .then(data => console.log("Response recorded:", data))
+                .catch(err => console.error("Error:", err));
+        }
+
+        // Event listeners
+        document.getElementById('forgiveBtn').addEventListener('click', () => {
+            sendResponse("I Forgive You");
+            window.location.href = 'bd.html';
+        });
+
+        document.getElementById('notForgiveBtn').addEventListener('click', () => {
+            sendResponse("Not Yet");
+            document.querySelector('.apology-text').innerHTML = `
+                <p>enaku puriuuthu ni evalo kasta pattu irruntha enna mannikama pavanu ana... pls try to understand, na unna miss panna virumabala.</p>
+            `;
+            document.querySelector('.buttons').innerHTML = `
+                <button id="forgive2">I Forgive You ❤️</button>
+                <button id="notForgive2">Not Yet 💔</button>
+            `;
+            
+            // Add event listeners for the new buttons
+            document.getElementById('forgive2').addEventListener('click', () => {
+                sendResponse("I Forgive You");
+                window.location.href = 'bd.html';
+            });
+            
+            document.getElementById('notForgive2').addEventListener('click', () => {
+                sendResponse("Not Yet");
+                document.querySelector('.apology-text').innerHTML = `
+                    <p>😣 na apdi mannika mudiyatha avlu enna pannitanu enaku theriyala.</p>
+                `;
+                document.querySelector('.buttons').innerHTML = `
+                    <button onclick="window.location.href='bd.html'">View Birthday Message Anyway</button>
+                `;
+            });
+        });
+
+        // Initialize
+        createHearts();
+    </script>
 </body>
+
 </html>
