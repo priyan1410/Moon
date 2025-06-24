@@ -53,22 +53,26 @@
             transition: all 0.3s;
         }
 
-        #forgiveBtn, #forgive2 {
+        #forgiveBtn,
+        #forgive2 {
             background-color: #4CAF50;
             color: white;
         }
 
-        #forgiveBtn:hover, #forgive2:hover {
+        #forgiveBtn:hover,
+        #forgive2:hover {
             background-color: #45a049;
             transform: scale(1.05);
         }
 
-        #notForgiveBtn, #notForgive2 {
+        #notForgiveBtn,
+        #notForgive2 {
             background-color: #f44336;
             color: white;
         }
 
-        #notForgiveBtn:hover, #notForgive2:hover {
+        #notForgiveBtn:hover,
+        #notForgive2:hover {
             background-color: #d32f2f;
             transform: scale(1.05);
         }
@@ -104,9 +108,12 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: rotate(45deg) translateY(0);
             }
+
             50% {
                 transform: rotate(45deg) translateY(-20px);
             }
@@ -177,19 +184,19 @@
 
         document.getElementById('notForgiveBtn').addEventListener('click', () => {
             document.querySelector('.apology-text').innerHTML = `
-                <p>enaku puriuuthu ni evalo kasta pattu irruntha enna mannikama pavanu ana... pls try to understand, na unna miss panna virumabala.</p>
+                <p>enaku puriuuthu ni evalo kasta pattu irruntha enna mannikama povanu ana... pls try to understand, na unna miss panna virumabala. unmaiya soldren na venumnu ethum pannala maa.</p>
             `;
             document.querySelector('.buttons').innerHTML = `
                 <button id="forgive2">I Forgive You ❤️</button>
                 <button id="notForgive2">Not Yet 💔</button>
             `;
-            
+
             // Add event listeners for the new buttons
             document.getElementById('forgive2').addEventListener('click', () => {
                 sendResponse("I Forgive You (2)");
                 window.location.href = 'bd.html';
             });
-            
+
             document.getElementById('notForgive2').addEventListener('click', () => {
                 sendResponse("Not Yet");
                 document.querySelector('.apology-text').innerHTML = `
