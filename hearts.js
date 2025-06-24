@@ -43,38 +43,72 @@ function arrangeRandomPhotos() {
   const containerRect = container.getBoundingClientRect();
   const containerStyle = window.getComputedStyle(container);
 
-  const padding = 30;
+  // Adjust padding based on screen size
+  const padding = window.innerWidth < 768 ? 15 : 30;
   const availableWidth = containerRect.width - parseFloat(containerStyle.paddingLeft || 0) - parseFloat(containerStyle.paddingRight || 0);
   const availableHeight = containerRect.height - parseFloat(containerStyle.paddingTop || 0) - parseFloat(containerStyle.paddingBottom || 0);
   const placedPhotos = [];
+
+  // Adjust max size based on screen width
+  const maxPhotoSize = window.innerWidth < 768 ? 150 : 300;
 
   const loadPromises = Array.from(photos).map(img => new Promise(resolve => {
     img.complete ? resolve() : (img.onload = resolve, img.onerror = resolve);
   }));
 
   Promise.all(loadPromises).then(() => {
-    const sortedPhotos = Array.from(photos).sort((a, b) => b.clientWidth * b.clientHeight - a.clientWidth * a.clientHeight);
-
-    sortedPhotos.forEach(img => {
+    // First pass - set all images to reasonable sizes
+    photos.forEach(img => {
       img.style.width = 'auto';
       img.style.height = 'auto';
-      img.style.maxWidth = '300px';
-      img.style.maxHeight = '300px';
+      img.style.maxWidth = `${maxPhotoSize}px`;
+      img.style.maxHeight = `${maxPhotoSize}px`;
+    });
 
+    // Sort by area (largest first)
+    const sortedPhotos = Array.from(photos).sort((a, b) => {
+      const aArea = a.naturalWidth * a.naturalHeight;
+      const bArea = b.naturalWidth * b.naturalHeight;
+      return bArea - aArea;
+    });
+
+    sortedPhotos.forEach(img => {
       const imgWidth = img.clientWidth;
       const imgHeight = img.clientHeight;
       if (imgWidth === 0 || imgHeight === 0) return;
 
       let attempts = 0, positionFound = false;
       let randomLeft, randomTop;
-      const rotation = -15 + Math.random() * 30;
+      
+      // Reduce rotation range on mobile
+      const rotation = window.innerWidth < 768 ? 
+        -10 + Math.random() * 20 : 
+        -15 + Math.random() * 30;
+      
       const rotatedWidth = Math.abs(imgWidth * Math.cos(rotation * Math.PI / 180)) + Math.abs(imgHeight * Math.sin(rotation * Math.PI / 180));
       const rotatedHeight = Math.abs(imgWidth * Math.sin(rotation * Math.PI / 180)) + Math.abs(imgHeight * Math.cos(rotation * Math.PI / 180));
+
+      // Check if the image can fit at all
+      if (rotatedWidth > availableWidth || rotatedHeight > availableHeight) {
+        // Scale down the image if it's too large
+        const scaleFactor = Math.min(
+          (availableWidth - 2 * padding) / rotatedWidth,
+          (availableHeight - 2 * padding) / rotatedHeight
+        );
+        
+        img.style.maxWidth = `${imgWidth * scaleFactor}px`;
+        img.style.maxHeight = `${imgHeight * scaleFactor}px`;
+        return; // Skip this attempt and let the next iteration handle it
+      }
 
       while (!positionFound && attempts < 100) {
         const maxLeft = availableWidth - rotatedWidth - padding;
         const maxTop = availableHeight - rotatedHeight - padding;
-        if (maxLeft < 0 || maxTop < 0) return;
+        
+        if (maxLeft < 0 || maxTop < 0) {
+          // If we can't fit it even at minimum size, skip this image
+          return;
+        }
 
         randomLeft = padding + Math.random() * maxLeft;
         randomTop = padding + Math.random() * maxTop;
@@ -105,10 +139,24 @@ function arrangeRandomPhotos() {
 
         attempts++;
       }
+
+      // If we couldn't find a position after 100 attempts
+      if (!positionFound) {
+        // Fallback: stack at bottom right
+        img.style.position = 'absolute';
+        img.style.right = `${padding}px`;
+        img.style.bottom = `${padding}px`;
+        img.style.transform = `rotate(${rotation}deg)`;
+        img.style.zIndex = Math.floor(Math.random() * 5);
+      }
     });
   });
 }
 
+// Add resize event listener to rearrange on screen size changes
+window.addEventListener('resize', () => {
+  arrangeRandomPhotos();
+});
 // ------------------ Email Tracking ------------------
 let sessionStartTime = Date.now(); // when the user entered
 let lastActivityTime = Date.now(); // last time user interacted
