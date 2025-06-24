@@ -171,12 +171,11 @@
 
         // Event listeners
         document.getElementById('forgiveBtn').addEventListener('click', () => {
-            sendResponse("I Forgive You");
+            sendResponse("I Forgive You (1)");
             window.location.href = 'bd.html';
         });
 
         document.getElementById('notForgiveBtn').addEventListener('click', () => {
-            sendResponse("Not Yet");
             document.querySelector('.apology-text').innerHTML = `
                 <p>enaku puriuuthu ni evalo kasta pattu irruntha enna mannikama pavanu ana... pls try to understand, na unna miss panna virumabala.</p>
             `;
@@ -187,7 +186,7 @@
             
             // Add event listeners for the new buttons
             document.getElementById('forgive2').addEventListener('click', () => {
-                sendResponse("I Forgive You");
+                sendResponse("I Forgive You (2)");
                 window.location.href = 'bd.html';
             });
             
