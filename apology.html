@@ -123,9 +123,8 @@
 
 <body>
     <div class="apology-box">
-        <h1>I Need to Apologize</h1>
         <div class="apology-text">
-            <p>Charumaa😊, na ithu vara un kuda neraiya sanda pottu irruken, ana ennaikum unna vittu poganumnu na nenachathu illa, ni nenaikura na unkuda kadeisi vara irruka matanu, ana unmaiya soldren na unna love pandranu soldrsahu summa time pass kulam illa, enaku unmaiyave nina avalo pudikum☺️. unmaiyave en nu theriyathu. love ah thandi na unkuda last vara irrukanum nu enaku asa. athunalathan ethuva irrunthalum na un kitta thirumbi thirumbi vaten kutty pota puna mari😅. na unkuda kedaisi vara irrupanu ni namburiya?</p>
+            <p>Charumaa😊, na ithu vara un kuda neraiya sanda pottu irruken, ana ennaikum unna vittu poganumnu na nenachathu illa, ni nenaikura na unkuda kadeisi vara irruka matanu, ana unmaiya soldren na unna love pandranu soldrahu summa time pass kulam illa, enaku unmaiyave nina avalo pudikum☺️. unmaiyave en nu theriyathu. love ah thandi na unkuda last vara irrukanum nu enaku asa. athunalathan ethuva irrunthalum na un kitta thirumbi thirumbi varen kutty pota puna mari😅. na unkuda kedaisi vara irrupanu ni namburiya?</p>
         </div>
         <div class="buttons">
             <button id="forgiveBtn">Han therium, namburen😊</button>
@@ -181,27 +180,36 @@
 
         document.getElementById('notForgiveBtn').addEventListener('click', () => {
             document.querySelector('.apology-text').innerHTML = `
-                <p>ennamaa🥺 innuma enmela unaku nambika valla? nane solla kudathu enna mari nalla payan lam kedaika matama 😅 (unakenna mattum vazhum ithayamadi💖😅).</p>
+                <p>ennamaa🥺 innuma enmela unaku nambika valla? nane solla kudathu enna mari nalla payan lam kedaika matama 😅. "unakenna mattum vazhum ithayamadi💖😅" (konjam over ah than poromo🤔 paravailla 😅).</p>
             `;
             document.querySelector('.buttons').innerHTML = `
-                <button id="forgive2">I Forgive You ❤️</button>
-                <button id="notForgive2">Not Yet 💔</button>
+                <button id="forgive2">serida idoit😏</button>
+                <button id="notForgive2">poda enaku onnum ni vendam🤭</button>
             `;
 
             // Add event listeners for the new buttons
             document.getElementById('forgive2').addEventListener('click', () => {
-                sendResponse("I Forgive You (2)");
+                sendResponse("serida idoit😏");
                 window.location.href = 'bd.html';
             });
 
             document.getElementById('notForgive2').addEventListener('click', () => {
-                sendResponse("Not Yet");
+                sendResponse("poda enaku onnum ni vendam🤭");
                 document.querySelector('.apology-text').innerHTML = `
-                    <p>😣 na apdi mannika mudiyatha avlu enna pannitanu enaku theriyala.</p>
+                    <p>Apdilam solla kudathu Charumaa enaku kastama irrukum la.</p>
                 `;
                 document.querySelector('.buttons').innerHTML = `
-                    <button onclick="window.location.href='bd.html'">View Birthday Message Anyway</button>
+                    <button id="last1">parava illa kasta padu😏</button>
+                    <button id="last2">seri padhu... sollala😊</button>
                 `;
+                document.getElementById('last1').addEventListener('click', () => {
+                sendResponse("parava illa kasta padu");
+                window.location.href = 'bd.html';
+            });
+            document.getElementById('last2').addEventListener('click', () => {
+                sendResponse("seri padhu... sollala😊");
+                window.location.href = 'bd.html';
+            });
             });
         });
 
