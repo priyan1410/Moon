@@ -958,63 +958,59 @@ canvas {
 }
 
 .wts {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
 }
 
 .wts h3 {
-    color: #2c3e50;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
     text-align: center;
-    position: relative;
-}
-
-.wts h3::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 3px;
-    background: #3498db;
-    margin: 0.5rem auto 0;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .WantToSay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
+    padding: 20px 0; /* Reduced padding since there's no background */
 }
 
 .wts-thumbnail {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.wts-thumbnail:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.wts-thumbnail img {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    display: block;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-
-.wts-thumbnail:hover img {
-    transform: scale(1.02);
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .wts-thumbnail a {
     display: block;
-    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.wts-thumbnail a:hover {
+    transform: translateY(-5px);
+}
+
+.wts-thumbnail img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .wts-thumbnail {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .wts h3 {
+        font-size: 24px;
+    }
 }
