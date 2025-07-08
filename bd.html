@@ -1024,27 +1024,24 @@
     <h2>Memories</h2>
 
     <div class="music-player">
-      <p>📞 Our Call Recording
-        25.04.2025
-        (20 min)
-      </p>
-      <div class="custom-player">
-        <button id="playBtn">Play</button>
-        <input type="range" id="seekBar" value="0">
-      </div>
-      <audio id="audio" src="Moon -2504252108.mp3"></audio>
-    </div>
-    <div class="music-player">
-      <p>insta la nick name ah change pannathuku aprom ni call panna
-        07.07.2025
-        (58 sec)
-      </p>
-      <div class="custom-player">
-        <button id="playBtn">Play</button>
-        <input type="range" id="seekBar" value="0">
-      </div>
-      <audio id="audio" src="record-1751910165107.mp3"></audio>
-    </div>
+  <p>📞 Our Call Recording<br>25.04.2025 (20 min)</p>
+  <div class="custom-player">
+    <button id="playBtn1">Play</button>
+    <input type="range" id="seekBar1" value="0">
+  </div>
+  <audio id="audio1" src="Moon -2504252108.mp3"></audio>
+</div>
+
+<div class="music-player">
+  <p>📞 insta la un nickname change pannathuku aprom😅<br>07.07.2025 (57 sec)</p>
+  <div class="custom-player">
+    <button id="playBtn2">Play</button>
+    <input type="range" id="seekBar2" value="0">
+  </div>
+  <audio id="audio2" src="record-1751910165107.mp3"></audio>
+</div>
+
+
 
     <div>
       <a href="#preview1" class="thumbnail">
@@ -1708,38 +1705,37 @@
       </footer>
     </div>
 
-    <script>
-      for (let i = 0; i < 20; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (5 + Math.random() * 5) + "s";
-        heart.style.opacity = Math.random();
-        document.body.appendChild(heart);
+<script>
+  function initPlayer(audioId, playBtnId, seekBarId) {
+    const audio = document.getElementById(audioId);
+    const playBtn = document.getElementById(playBtnId);
+    const seekBar = document.getElementById(seekBarId);
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = 'Pause';
+      } else {
+        audio.pause();
+        playBtn.textContent = 'Play';
       }
+    });
 
-      const audio = document.getElementById('audio');
-      const playBtn = document.getElementById('playBtn');
-      const seekBar = document.getElementById('seekBar');
+    audio.addEventListener('timeupdate', () => {
+      seekBar.value = (audio.currentTime / audio.duration) * 100 || 0;
+    });
 
-      playBtn.addEventListener('click', () => {
-        if (audio.paused) {
-          audio.play();
-          playBtn.textContent = '💔 Pause';
-        } else {
-          audio.pause();
-          playBtn.textContent = '❤️ Play';
-        }
-      });
+    seekBar.addEventListener('input', () => {
+      audio.currentTime = (seekBar.value / 100) * audio.duration;
+    });
+  }
 
-      audio.addEventListener('timeupdate', () => {
-        seekBar.value = (audio.currentTime / audio.duration) * 100;
-      });
+  // Initialize players
+  initPlayer('audio1', 'playBtn1', 'seekBar1');
+  initPlayer('audio2', 'playBtn2', 'seekBar2');
+</script>
 
-      seekBar.addEventListener('input', () => {
-        audio.currentTime = (seekBar.value / 100) * audio.duration;
-      });
-    </script>
+
     <div class="lightbox-slider" id="lightboxSlider">
       <span class="close-btn" onclick="closeLightbox()">×</span>
       <img id="sliderImage" src="" alt="Preview">
