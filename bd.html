@@ -1001,10 +1001,13 @@
           ammata ellathaium sollitanu sodra ithu la enga amma sonnnathaum solita🤦🏻‍♂️, unga amma enga amma va pathi
           enna nenapanga🤷🏻‍♂️. ithula enga amma unnaiya koduma paduthum nu vera unga amma soldranga. etha enga
           sollanumne theriyathu🤦🏻‍♂️. ennaiya jocker aakita enga amma va villy aakita😮‍💨. ama 1st en itha unga
-          ammata ippa sonna🤷🏻‍♂️? na vayasu kolarula pandrana? apdi patha na scl lai eh panni irrukanum. aprom na insta la un nick
+          ammata ippa sonna🤷🏻‍♂️? na vayasu kolarula pandrana? apdi patha na scl lai eh panni irrukanum. aprom na
+          insta la un nick
           name ah mathiten, pathutu call panna (pavam chellathuku voice eh maritu😅) en change pannanu kekanumnu kandipa
-          nenachu irrupa. ana ni kekala. unna love pandra tha vittutanu artham illa, (if you love something, let it free
-          if it yours it will comes back or else it not yours) i hope you will understand.
+          nenachu irrupa. ana ni kekala. unna love pandra tha vittutanu artham illa, one side ah irrunthu onnum projanam
+          illa, enaku mattum pudicha onnum aga porathu illa onakum pudikanum. so na en story ah inga stop pannikuren,
+          love ah illa. so
+          ini na en love ah express panna porathu illa, na neraiya ve panniten, ini ni edukurathuthan mudivu.
           <br>
           <br>
           <br>
@@ -1024,22 +1027,22 @@
     <h2>Memories</h2>
 
     <div class="music-player">
-  <p>📞 Our Call Recording<br>25.04.2025 (20 min)</p>
-  <div class="custom-player">
-    <button id="playBtn1">Play</button>
-    <input type="range" id="seekBar1" value="0">
-  </div>
-  <audio id="audio1" src="Moon -2504252108.mp3"></audio>
-</div>
+      <p>📞 Our Call Recording<br>25.04.2025 (20 min)</p>
+      <div class="custom-player">
+        <button id="playBtn1">Play</button>
+        <input type="range" id="seekBar1" value="0">
+      </div>
+      <audio id="audio1" src="Moon -2504252108.mp3"></audio>
+    </div>
 
-<div class="music-player">
-  <p>📞 insta la un nickname change pannathuku aprom😅<br>07.07.2025 (57 sec)</p>
-  <div class="custom-player">
-    <button id="playBtn2">Play</button>
-    <input type="range" id="seekBar2" value="0">
-  </div>
-  <audio id="audio2" src="record-1751910165107.mp3"></audio>
-</div>
+    <div class="music-player">
+      <p>📞 insta la un nickname change pannathuku aprom😅<br>07.07.2025 (57 sec)</p>
+      <div class="custom-player">
+        <button id="playBtn2">Play</button>
+        <input type="range" id="seekBar2" value="0">
+      </div>
+      <audio id="audio2" src="record-1751910165107.mp3"></audio>
+    </div>
 
 
 
@@ -1705,35 +1708,35 @@
       </footer>
     </div>
 
-<script>
-  function initPlayer(audioId, playBtnId, seekBarId) {
-    const audio = document.getElementById(audioId);
-    const playBtn = document.getElementById(playBtnId);
-    const seekBar = document.getElementById(seekBarId);
+    <script>
+      function initPlayer(audioId, playBtnId, seekBarId) {
+        const audio = document.getElementById(audioId);
+        const playBtn = document.getElementById(playBtnId);
+        const seekBar = document.getElementById(seekBarId);
 
-    playBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        playBtn.textContent = 'Pause';
-      } else {
-        audio.pause();
-        playBtn.textContent = 'Play';
+        playBtn.addEventListener('click', () => {
+          if (audio.paused) {
+            audio.play();
+            playBtn.textContent = 'Pause';
+          } else {
+            audio.pause();
+            playBtn.textContent = 'Play';
+          }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+          seekBar.value = (audio.currentTime / audio.duration) * 100 || 0;
+        });
+
+        seekBar.addEventListener('input', () => {
+          audio.currentTime = (seekBar.value / 100) * audio.duration;
+        });
       }
-    });
 
-    audio.addEventListener('timeupdate', () => {
-      seekBar.value = (audio.currentTime / audio.duration) * 100 || 0;
-    });
-
-    seekBar.addEventListener('input', () => {
-      audio.currentTime = (seekBar.value / 100) * audio.duration;
-    });
-  }
-
-  // Initialize players
-  initPlayer('audio1', 'playBtn1', 'seekBar1');
-  initPlayer('audio2', 'playBtn2', 'seekBar2');
-</script>
+      // Initialize players
+      initPlayer('audio1', 'playBtn1', 'seekBar1');
+      initPlayer('audio2', 'playBtn2', 'seekBar2');
+    </script>
 
 
     <div class="lightbox-slider" id="lightboxSlider">
