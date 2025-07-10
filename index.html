@@ -80,80 +80,95 @@
     <input type="text" id="nameInput" class="name-input" placeholder="Enter your name">
     <input type="password" id="passcodeInput" class="passcode-input" placeholder="Enter passcode">
   </div>
+<script>
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const passcodeInput = document.getElementById('passcodeInput');
+  const nameInput = document.getElementById('nameInput');
+  const mainMessage = document.getElementById('mainMessage');
+  const buttonContainer = document.getElementById('buttonContainer');
+  const correctPasscode = "15551";
 
-  <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const passcodeInput = document.getElementById('passcodeInput');
-    const nameInput = document.getElementById('nameInput');
-    const mainMessage = document.getElementById('mainMessage');
-    const buttonContainer = document.getElementById('buttonContainer');
-    const correctPasscode = "15551"; // Your passcode
+  let userName = "";
 
-    yesBtn.addEventListener('click', () => {
-      // Hide buttons and show name input
-      buttonContainer.style.display = 'none';
-      mainMessage.innerHTML = "<h2>First, tell me your name 😊</h2>";
-      nameInput.style.display = 'inline-block';
-      nameInput.focus();
-    });
+  // Step 1: Ask for name on load
+  window.onload = () => {
+    mainMessage.innerHTML = "<h2>Hi there! What's your name? 😊</h2>";
+    nameInput.style.display = 'inline-block';
+    nameInput.focus();
+    passcodeInput.style.display = 'none';
+    buttonContainer.style.display = 'none';
+  };
 
-    nameInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const userName = nameInput.value.trim();
-        if (userName !== '') {
-          // Hide name input and show passcode input
-          nameInput.style.display = 'none';
-          mainMessage.innerHTML = `<h2>Hi ${userName}! Now enter the passcode 🔒</h2>`;
-          passcodeInput.style.display = 'inline-block';
-          passcodeInput.focus();
-        } else {
-          alert("Please enter your name first!");
-        }
+  // Step 2: After name is entered
+  nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      userName = nameInput.value.trim();
+      if (userName !== '') {
+        nameInput.style.display = 'none';
+        passcodeInput.style.display = 'inline-block';
+        passcodeInput.focus();
+        mainMessage.innerHTML = `<h2>Hi ${userName}! Please enter the passcode 🔒</h2>`;
+      } else {
+        alert("Please enter your name!");
       }
-    });
-
-    passcodeInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        if (passcodeInput.value === correctPasscode) {
-          // Store the name for use on bd.html
-          localStorage.setItem('userName', nameInput.value.trim());
-          sendEmailNotification(nameInput.value.trim());
-          window.location.href = 'apology.html';
-        } else {
-          alert("Wrong passcode 😢 Try again!");
-          passcodeInput.value = '';
-        }
-      }
-    });
-
-    noBtn.addEventListener('click', () => {
-      document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
-    });
-
-    function sendEmailNotification(userName) {
-      // Replace with the token from FormSubmit's activation email
-      const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
-
-      fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: "Birthday Website Access",
-          _subject: "🎉 Someone entered the passcode!",
-          message: `${userName} entered the correct passcode at ${new Date().toLocaleString()}`,
-          _replyto: "noreply@yourwebsite.com", // Optional
-          _template: "table" // Makes the email look nicer
-        })
-      })
-        .then(response => response.json())
-        .then(data => console.log("Email sent!", data))
-        .catch(error => console.error("Error:", error));
     }
-  </script>
+  });
+
+  // Step 3: After passcode is entered
+  passcodeInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      if (passcodeInput.value === correctPasscode) {
+        localStorage.setItem('userName', userName);
+        sendEmailNotification(userName);
+
+        // Show birthday message and Yes/No buttons
+        passcodeInput.style.display = 'none';
+        buttonContainer.style.display = 'flex';
+        mainMessage.innerHTML = `<h1>Happiest Birthday Charumaaaa 😊🎉</h1>
+        <p>Enaku theriyala ni itha pakurapa namba eppadi irrupomnu... ulla namma memories um en polambalum than irruku😅.<br>
+        Alteast 2hr aagum but pls enakaga oru time aachum intha website ah full ah pathudu.</p>`;
+      } else {
+        alert("Wrong passcode 😢 Try again!");
+        passcodeInput.value = '';
+      }
+    }
+  });
+
+  // Yes button
+  yesBtn.addEventListener('click', () => {
+    window.location.href = 'apology.html';
+  });
+
+  // No button
+  noBtn.addEventListener('click', () => {
+    document.body.innerHTML = "<h1>Okay! Come back when you're free 💖</h1>";
+  });
+
+  // Optional: send notification email
+  function sendEmailNotification(userName) {
+    const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
+    fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: "Birthday Website Access",
+        _subject: "🎉 Someone entered the passcode!",
+        message: `${userName} entered the correct passcode at ${new Date().toLocaleString()}`,
+        _replyto: "noreply@yourwebsite.com",
+        _template: "table"
+      })
+    })
+      .then(response => response.json())
+      .then(data => console.log("Email sent!", data))
+      .catch(error => console.error("Error:", error));
+  }
+</script>
+
+  
 </body>
 
 </html>
