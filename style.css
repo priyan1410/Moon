@@ -135,6 +135,41 @@ h1 {
   transition: all 0.3s ease;
 }
 
+.time-display {
+  font-size: 14px;
+  color: #666;
+  margin-left: 10px;
+  min-width: 80px;
+  display: inline-block;
+  text-align: center;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border-radius: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.custom-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
 /* Responsive slider */
 @media (max-width: 500px) {
   #seekBar, input[type="range"] {
