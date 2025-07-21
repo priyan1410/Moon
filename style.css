@@ -1,4 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, #ffbbf4 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: backgroundScroll 60s linear infinite;
+  z-index: -3;
+  opacity: 0.2;
+}
+
+@keyframes backgroundScroll {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-100px, -100px);
+  }
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+  font-size: 3.5em;
+  color: white;
+  text-shadow:
+    -1px -1px 0 #007bff,
+     1px -1px 0 #007bff,
+    -1px  1px 0 #007bff,
+     1px  1px 0 #007bff;
+}
+
+
+.birthday-title, .reels-section p {
+  font-family: 'Great Vibes', cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -30,6 +76,8 @@ h1 {
 }
 
 /* Gallery */
+
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -59,6 +107,8 @@ h1 {
 
 .gallery img:hover {
   transform: scale(1.1) rotate(0deg);
+  filter: brightness(1.1);
+  transition: transform 0.4s ease, filter 0.3s ease;
   z-index: 10;
   box-shadow: 0 15px 30px rgba(255, 20, 147, 0.5);
   border: 3px solid #ff69b4;
@@ -66,14 +116,17 @@ h1 {
 
 /* Music Player */
 .music-player {
-  margin-bottom: 50px;
-  background: #e6f2ff;
-  padding: 20px;
-  border-radius: 15px;
-  display: inline-block;
-  box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  padding: 25px;
+  width: 90%;
+  max-width: 500px;
+  margin: 40px auto;
   animation: rainbow-border 8s linear infinite;
 }
+
 
 @keyframes rainbow-border {
   0% {
@@ -220,7 +273,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .screenshot img:hover {
-  transform: scale(1.05);
+  transform: scale(1.1) rotate(0deg);
+  filter: brightness(1.1);
+  transition: transform 0.4s ease, filter 0.3s ease;
 }
 
 /* Footer */
@@ -869,62 +924,13 @@ canvas {
 }
 
 .reel-thumbnails img:hover {
+  transform: scale(1.1) rotate(0deg);
+  filter: brightness(1.1);
+  transition: transform 0.4s ease, filter 0.3s ease;
   transform: scale(1.05);
   box-shadow: 0 15px 25px rgba(255, 105, 180, 0.5);
 }
 
-
-
-/*
-.feedback-form {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.feedback-form h3 {
-  color: #d23669;
-  font-size: 1.8em;
-  margin-bottom: 20px;
-}
-
-.feedback-form p {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-  color: #5a3d3d;
-}
-
-.response-btn {
-  background-color: #ff6b8b;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 25px;
-  font-size: 1.1em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 0 15px;
-  box-shadow: 0 4px 8px rgba(255, 107, 139, 0.3);
-}
-
-.response-btn:hover {
-  background-color: #ff4757;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(255, 107, 139, 0.4);
-}
-
-#feedbackStatus {
-  margin-top: 15px;
-  text-align: center;
-  color: #d23669;
-  font-size: 0.9em;
-  min-height: 20px;
-}
-*/
 
 .message-box p {
   font-family: Arial, Helvetica, sans-serif;
@@ -1061,4 +1067,11 @@ canvas {
     .wts h3 {
         font-size: 24px;
     }
+}
+
+button:hover,
+.reel-link:hover,
+.response-btn:hover {
+  box-shadow: 0 0 12px rgba(255, 105, 180, 0.6);
+  transform: scale(1.05);
 }
