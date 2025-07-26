@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
 body::after {
   content: '';
   position: fixed;
@@ -18,6 +19,7 @@ body::after {
   from {
     transform: translate(0, 0);
   }
+
   to {
     transform: translate(-100px, -100px);
   }
@@ -32,13 +34,14 @@ h1 {
   color: white;
   text-shadow:
     -1px -1px 0 #007bff,
-     1px -1px 0 #007bff,
-    -1px  1px 0 #007bff,
-     1px  1px 0 #007bff;
+    1px -1px 0 #007bff,
+    -1px 1px 0 #007bff,
+    1px 1px 0 #007bff;
 }
 
 
-.birthday-title, .reels-section p {
+.birthday-title,
+.reels-section p {
   font-family: 'Great Vibes', cursive;
 }
 
@@ -157,6 +160,7 @@ h1 {
     box-shadow: 0 0 15px #9400d3;
   }
 }
+
 /* Optional: Responsive Music Player spacing */
 .music-player {
   margin: 40px auto;
@@ -225,7 +229,9 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* Responsive slider */
 @media (max-width: 500px) {
-  #seekBar, input[type="range"] {
+
+  #seekBar,
+  input[type="range"] {
     width: 100% !important;
   }
 }
@@ -1012,61 +1018,62 @@ canvas {
 }
 
 .wts {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .wts h3 {
-    text-align: center;
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .WantToSay {
-    padding: 20px 0; /* Reduced padding since there's no background */
+  padding: 20px 0;
+  /* Reduced padding since there's no background */
 }
 
 .wts-thumbnail {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
 .wts-thumbnail a {
-    display: block;
-    transition: transform 0.3s ease;
+  display: block;
+  transition: transform 0.3s ease;
 }
 
 .wts-thumbnail a:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .wts-thumbnail img {
-    width: 100%;
-    max-width: 150px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid #ddd;
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ddd;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .wts-thumbnail {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    
-    .wts h3 {
-        font-size: 24px;
-    }
+  .wts-thumbnail {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .wts h3 {
+    font-size: 24px;
+  }
 }
 
 button:hover,
@@ -1075,3 +1082,7 @@ button:hover,
   box-shadow: 0 0 12px rgba(255, 105, 180, 0.6);
   transform: scale(1.05);
 }
+
+  .love-entry {
+    margin: 15px 0;
+  }
