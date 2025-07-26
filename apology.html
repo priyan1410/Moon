@@ -20,7 +20,11 @@
         }
 
         .apology-box {
-            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            background-image: linear-gradient(#ffffff09, #ffffff09),
+                radial-gradient(circle, #ffb3c6, #c9c9ff);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
             padding: 30px;
             border-radius: 15px;
             backdrop-filter: blur(5px);
@@ -28,6 +32,7 @@
             max-width: 600px;
             margin: 20px;
         }
+
 
         h1 {
             margin-bottom: 20px;
@@ -124,7 +129,12 @@
 <body>
     <div class="apology-box">
         <div class="apology-text">
-            <p>Charumaa😊, na ithu vara un kuda neraiya sanda pottu irruken, ana ennaikum unna vittu poganumnu na nenachathu illa, ni nenaikura na unkuda kadeisi vara irruka matanu, ana unmaiya soldren na unna love pandranu soldrahu summa time pass kulam illa, enaku unmaiyave nina avalo pudikum☺️. unmaiyave en nu theriyathu. love ah thandi na unkuda last vara irrukanum nu enaku asa. athunalathan ethuva irrunthalum na un kitta thirumbi thirumbi varen kutty pota puna mari😅. na unkuda kedaisi vara irrupanu ni namburiya?</p>
+            <p>Charumaa😊, na ithu vara un kuda neraiya sanda pottu irruken, ana ennaikum unna vittu poganumnu na
+                nenachathu illa, ni nenaikura na unkuda kadeisi vara irruka matanu, ana unmaiya soldren na unna love
+                pandranu soldrahu summa time pass kulam illa, enaku unmaiyave nina avalo pudikum☺️. unmaiyave en nu
+                theriyathu. love ah thandi na unkuda last vara irrukanum nu enaku asa. athunalathan ethuva irrunthalum
+                na un kitta thirumbi thirumbi varen kutty pota puna mari😅. na unkuda kedaisi vara irrupanu ni
+                namburiya?</p>
         </div>
         <div class="buttons">
             <button id="forgiveBtn">Han therium, namburen😊</button>
@@ -175,8 +185,10 @@
         // Event listeners
         document.getElementById('forgiveBtn').addEventListener('click', () => {
             sendResponse("han therium, namburen😊");
+            confetti(); // 🎉 Trigger confetti
             window.location.href = 'bd.html';
         });
+
 
         document.getElementById('notForgiveBtn').addEventListener('click', () => {
             document.querySelector('.apology-text').innerHTML = `
@@ -203,19 +215,22 @@
                     <button id="last2">seri padhu... sollala😊</button>
                 `;
                 document.getElementById('last1').addEventListener('click', () => {
-                sendResponse("parava illa kasta padu");
-                window.location.href = 'bd.html';
-            });
-            document.getElementById('last2').addEventListener('click', () => {
-                sendResponse("seri padhu... sollala😊");
-                window.location.href = 'bd.html';
-            });
+                    sendResponse("parava illa kasta padu");
+                    window.location.href = 'bd.html';
+                });
+                document.getElementById('last2').addEventListener('click', () => {
+                    sendResponse("seri padhu... sollala😊");
+                    window.location.href = 'bd.html';
+                });
             });
         });
 
         // Initialize
         createHearts();
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
 </body>
 
 </html>
