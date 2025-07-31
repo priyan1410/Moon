@@ -8,7 +8,7 @@ body::after {
   left: 0;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, #ffbbf4 1px, transparent 1px);
+  background: radial-gradient(circle, #fffbde 1px, transparent 1px);
   background-size: 60px 60px;
   animation: backgroundScroll 60s linear infinite;
   z-index: -3;
@@ -52,7 +52,7 @@ html {
 body {
   margin: 0;
   font-family: 'Segoe UI', cursive, sans-serif;
-  background: linear-gradient(to bottom right, #f5a9dd, #ff96de);
+  background: linear-gradient(to bottom right, #fffbde, #ffffe2);
   color: #2c3e50;
   text-align: center;
   position: relative;
@@ -113,8 +113,8 @@ h1 {
   filter: brightness(1.1);
   transition: transform 0.4s ease, filter 0.3s ease;
   z-index: 10;
-  box-shadow: 0 15px 30px rgba(255, 20, 147, 0.5);
-  border: 3px solid #ff69b4;
+  box-shadow: 0 15px 30px rgba(0, 183, 255, 0.627);
+  border: 3px solid #91C8E4;
 }
 
 /* Music Player */
@@ -166,7 +166,7 @@ h1 {
   margin: 40px auto;
   width: 90%;
   max-width: 500px;
-  background: #e6f2ff;
+  background: #a7cef7;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1);
@@ -215,7 +215,7 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 16px;
   height: 16px;
-  background: #ff6b6b;
+  background: #4682A9;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -552,7 +552,7 @@ body {
 
 /* Birthday Wish Section */
 .birthday-wish {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  background: linear-gradient(135deg, #749BC2 0%, #91C8E4 100%);
   padding: 30px;
   border-radius: 20px;
   margin: 20px auto 40px;
@@ -679,10 +679,10 @@ body {
 
 .reels-section p {
   font-size: 1.8em;
-  color: #d23669;
+  color: #4682A9;
   margin-bottom: 30px;
   font-family: 'Marck Script', cursive;
-  text-shadow: 1px 1px 2px rgba(255, 182, 193, 0.5);
+  text-shadow: 1px 1px 2px rgba(199, 225, 255, 0.644);
 }
 
 .reels-grid {
@@ -736,13 +736,13 @@ canvas {
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: rgba(255, 240, 243, 0.8);
+  background-color: #4682A9;
   /* Soft pink background */
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(255, 140, 171, 0.3);
+  box-shadow: 0 4px 15px rgba(162, 210, 245, 0.517);
   /* Romantic shadow */
   position: relative;
-  border: 1px solid #ffb3c6;
+  border: 1px solid #91C8E4;
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
 }
@@ -754,14 +754,14 @@ canvas {
   left: -10px;
   right: -10px;
   bottom: -10px;
-  border: 2px dashed #ff8fab;
+  border: 2px dashed #4682A9;
   border-radius: 20px;
   z-index: -1;
   opacity: 0.5;
 }
 
 .conclusion p {
-  color: #5a3d3d;
+  color: white;
   /* Soft dark color for readability */
   font-size: 1.1rem;
   text-align: center;
@@ -834,7 +834,7 @@ canvas {
 }
 
 .feedback-form h3 {
-  color: #d23669;
+  color: #4682A9;
   font-size: 1.8em;
   margin-bottom: 20px;
   text-align: center;
@@ -848,7 +848,7 @@ canvas {
   width: 100%;
   min-height: 150px;
   padding: 15px;
-  border: 2px solid #ffccd5;
+  border: 2px solid #aec1cb;
   border-radius: 15px;
   font-size: 1em;
   resize: vertical;
@@ -856,27 +856,27 @@ canvas {
 }
 
 .feedback-form textarea:focus {
-  border-color: #ff8fab;
+  border-color: #91C8E4;
   outline: none;
 }
 
 .feedback-form input[type="email"] {
   width: 100%;
   padding: 15px;
-  border: 2px solid #ffccd5;
+  border: 2px solid #91C8E4;
   border-radius: 15px;
   font-size: 1em;
   transition: border 0.3s ease;
 }
 
 .feedback-form input[type="email"]:focus {
-  border-color: #ff8fab;
+  border-color: #749BC2;
   outline: none;
 }
 
 .feedback-form button {
-  background-color: #ff6b8b;
-  color: white;
+  background-color: #4682A9;
+  color: #FFFBDE;
   border: none;
   padding: 12px 25px;
   border-radius: 25px;
@@ -889,7 +889,7 @@ canvas {
 }
 
 .feedback-form button:hover {
-  background-color: #ff4757;
+  background-color: #3e9af6;
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(255, 107, 139, 0.4);
 }
@@ -897,7 +897,7 @@ canvas {
 #feedbackStatus {
   margin-top: 15px;
   text-align: center;
-  color: #d23669;
+  color: #4a7fb5;
   font-size: 0.9em;
   min-height: 20px;
 }
@@ -943,7 +943,7 @@ canvas {
 .message-box {
   margin-top: 40px;
   padding: 20px;
-  background: #fff0f6;
+  background: #abd6fc;
   border-radius: 15px;
   max-width: 600px;
   margin-left: auto;
@@ -965,7 +965,7 @@ canvas {
   margin-top: 10px;
   padding: 10px 20px;
   font-size: 1em;
-  background-color: #ff69b4;
+  background-color: #0da8e6;
   color: white;
   border: none;
   border-radius: 10px;
@@ -974,7 +974,7 @@ canvas {
 }
 
 .message-box button:hover {
-  background-color: #e055a1;
+  background-color: #1b95cd;
 }
 
 
