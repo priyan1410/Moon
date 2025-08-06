@@ -8,7 +8,7 @@ body::after {
   left: 0;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, #fffbde 1px, transparent 1px);
+  background: radial-gradient(circle, #FDF5AA 1px, transparent 1px);
   background-size: 60px 60px;
   animation: backgroundScroll 60s linear infinite;
   z-index: -3;
