@@ -131,35 +131,7 @@ h1 {
 }
 
 
-@keyframes rainbow-border {
-  0% {
-    box-shadow: 0 0 15px #ff0000;
-  }
 
-  16% {
-    box-shadow: 0 0 15px #ff7f00;
-  }
-
-  33% {
-    box-shadow: 0 0 15px #ffff00;
-  }
-
-  50% {
-    box-shadow: 0 0 15px #00ff00;
-  }
-
-  66% {
-    box-shadow: 0 0 15px #0000ff;
-  }
-
-  83% {
-    box-shadow: 0 0 15px #4b0082;
-  }
-
-  100% {
-    box-shadow: 0 0 15px #9400d3;
-  }
-}
 
 /* Optional: Responsive Music Player spacing */
 .music-player {
@@ -570,7 +542,7 @@ body {
 }
 
 .birthday-title {
-  color: #feffe1;
+  color: #003560;
   font-size: 2.2em;
   margin-bottom: 15px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
