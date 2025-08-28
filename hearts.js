@@ -283,3 +283,51 @@ function sendUserMessage() {
       console.error("Email error:", error);
     });
 }
+
+
+// Add this to your hearts.js file
+
+// ------------------ "Want to Say" Click Tracking ------------------
+function trackWantToSayClicks() {
+  const wantToSayLinks = document.querySelectorAll('.WantToSay a');
+  
+  wantToSayLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const imageSrc = this.querySelector('img').src;
+      const imageAlt = this.querySelector('img').alt;
+      const userName = localStorage.getItem('userName') || 'Anonymous User';
+      
+      // Send notification email
+      sendWantToSayEmail(userName, imageSrc, imageAlt);
+    });
+  });
+}
+
+function sendWantToSayEmail(userName, imageSrc, imageAlt) {
+  const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
+  
+  fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: "Want To Say Click Tracker",
+      _subject: `📸 ${userName} clicked on a "Want to Say" image`,
+      message: `${userName} clicked on the "${imageAlt}" image (${imageSrc}) at ${new Date().toLocaleString()}`,
+      _template: "table"
+    })
+  })
+  .then(res => res.json())
+  .then(data => console.log("✅ Want to Say click email sent:", data))
+  .catch(err => console.error("❌ Email error:", err));
+}
+
+// Initialize the tracking when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  // ... your existing code ...
+  
+  // Add this line to initialize the click tracking
+  trackWantToSayClicks();
+});
