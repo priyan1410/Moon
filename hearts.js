@@ -331,3 +331,50 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add this line to initialize the click tracking
   trackWantToSayClicks();
 });
+
+// ------------------ Love Date Click Tracking ------------------
+function trackLoveDateClicks() {
+  const loveDates = document.querySelectorAll('.love-date');
+  
+  loveDates.forEach(dateEl => {
+    dateEl.addEventListener('click', function() {
+      const dateText = this.textContent.trim();
+      const userName = localStorage.getItem('userName') || 'Anonymous User';
+      
+      // Send notification email
+      sendLoveDateEmail(userName, dateText);
+      
+      // Also track in console for debugging
+      console.log(`User ${userName} opened date: ${dateText}`);
+    });
+  });
+}
+
+function sendLoveDateEmail(userName, dateText) {
+  const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
+  
+  fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: "Love Date Tracker",
+      _subject: `📅 ${userName} opened a love date section`,
+      message: `${userName} opened the date: "${dateText}" at ${new Date().toLocaleString()}`,
+      _template: "table"
+    })
+  })
+  .then(res => res.json())
+  .then(data => console.log("✅ Love date email sent:", data))
+  .catch(err => console.error("❌ Email error:", err));
+}
+
+// Initialize the tracking when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  // ... your existing code ...
+  
+  // Add this line to initialize the love date click tracking
+  trackLoveDateClicks();
+});
