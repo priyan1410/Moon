@@ -1,3 +1,4 @@
+<!---
 <!DOCTYPE html>
 <html lang="en">
 
@@ -143,16 +144,11 @@
 <body>
     <div class="apology-box">
         <div class="apology-text">
-            <p>Charumaa😊, na ithu vara un kuda neraiya sanda pottu irruken, ana ennaikum unna vittu poganumnu na
-                nenachathu illa, ni nenaikura na unkuda kadeisi vara irruka matanu, ana unmaiya soldren na unna love
-                pandranu soldrahu summa time pass kulam illa, enaku unmaiyave nina avalo pudikum☺️. unmaiyave en nu
-                theriyathu. love ah thandi na unkuda last vara irrukanum nu enaku asa. athunalathan ethuva irrunthalum
-                na un kitta thirumbi thirumbi varen kutty pota puna mari😅. na unkuda kedaisi vara irrupanu ni
-                namburiya?</p>
+            <h1>Sorry🥺</h1>
         </div>
         <div class="buttons">
-            <button id="forgiveBtn">Han therium, namburen😊</button>
-            <button id="notForgiveBtn">poda idiot athalam namba mudiyathu😏</button>
+            <button id="forgiveBtn">Seri Padhu</button>
+            <button id="notForgiveBtn">poda pesatha</button>
         </div>
     </div>
 
@@ -198,9 +194,14 @@
 
         // Event listeners
         document.getElementById('forgiveBtn').addEventListener('click', () => {
-            sendResponse("han therium, namburen😊");
+            sendResponse("Seri Padhu");
             confetti(); // 🎉 Trigger confetti
             window.location.href = 'bd.html';
+        });
+        document.getElementById('notForgiveBtn').addEventListener('click', () => {
+            sendResponse("poda pesatha");
+            confetti(); // 🎉 Trigger confetti
+            window.location.href = 'apology.html';
         });
 
 
@@ -249,4 +250,530 @@
 
 </body>
 
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incremental Apology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .apology-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .apology-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .apology-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.1), transparent);
+            transform: rotate(30deg);
+            z-index: -1;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 158, 181, 0.5);
+            position: relative;
+            display: inline-block;
+            min-height: 100px;
+        }
+
+        .apology-text {
+            margin: 30px 0;
+            line-height: 1.6;
+            font-size: 1.4rem;
+            min-height: 100px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 16px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            min-width: 200px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        #forgiveBtn {
+            background: linear-gradient(to right, #00b09b, #96c93d);
+            color: white;
+        }
+
+        #forgiveBtn:hover {
+            background: linear-gradient(to right, #00917a, #82b434);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        #notForgiveBtn {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+        }
+
+        #notForgiveBtn:hover {
+            background: linear-gradient(to right, #e53a61, #e64427);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating {
+            position: absolute;
+            z-index: 1;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .shape {
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .counter i {
+            color: #ff6b6b;
+            font-size: 1.3rem;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            33% {
+                transform: translateY(-20px) rotate(10deg) scale(1.05);
+            }
+            66% {
+                transform: translateY(10px) rotate(-5deg) scale(0.95);
+            }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typewriter 3s steps(40, end);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .message-container {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .heart-btn {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            min-width: auto;
+            padding: 10px;
+        }
+
+        .heart-btn:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.2);
+            background: transparent;
+        }
+
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .apology-text {
+                font-size: 1.1rem;
+            }
+            
+            button {
+                min-width: 160px;
+                padding: 14px 25px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="counter">
+        <i class="fas fa-heart"></i>
+        <span id="clickCount">0</span>
+    </div>
+    
+    <div class="container">
+        <div class="apology-box">
+            <h1 id="sorryText"></h1>
+            
+            <div class="message-container">
+                <div class="apology-text" id="messageDisplay">
+                    I apologize for my actions. Please accept my sincere apology.
+                </div>
+                <button class="heart-btn" id="heartBtn">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
+            
+            <div class="buttons">
+                <button id="forgiveBtn"><i class="fas fa-check-circle"></i> Accept</button>
+                <button id="notForgiveBtn"><i class="fas fa-times-circle"></i> Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize variables
+        let viewCount = localStorage.getItem('apologyViewCount') ? 
+                        parseInt(localStorage.getItem('apologyViewCount')) : 0;
+        let forgiveClicked = false;
+        
+        // Increment view count on page load
+        viewCount++;
+        localStorage.setItem('apologyViewCount', viewCount);
+        
+        // Update the counter display
+        document.getElementById('clickCount').textContent = viewCount;
+        
+        // Create floating shapes
+        function createFloatingShapes() {
+            const body = document.body;
+            
+            // Create shapes
+            for (let i = 0; i < 15; i++) {
+                const shape = document.createElement('div');
+                shape.className = 'floating shape';
+                
+                const size = 40 + Math.random() * 80;
+                shape.style.width = size + 'px';
+                shape.style.height = size + 'px';
+                
+                shape.style.left = Math.random() * 100 + 'vw';
+                shape.style.top = Math.random() * 100 + 'vh';
+                shape.style.animationDelay = Math.random() * 5 + 's';
+                shape.style.animationDuration = 5 + Math.random() * 10 + 's';
+                
+                body.appendChild(shape);
+            }
+        }
+        
+        // Generate the Sorry text with incremental letters and emojis
+        function generateSorryText() {
+            const sorryText = document.getElementById('sorryText');
+            sorryText.innerHTML = '';
+            
+            // Base word
+            const baseWord = "SORRY";
+            
+            // Add base letters with animation delay
+            for (let i = 0; i < baseWord.length; i++) {
+                const letterSpan = document.createElement('span');
+                letterSpan.className = 'letter';
+                letterSpan.textContent = baseWord[i];
+                letterSpan.style.animationDelay = (i * 0.2) + 's';
+                sorryText.appendChild(letterSpan);
+            }
+            
+            // Add extra letters based on view count
+            for (let i = 0; i < viewCount; i++) {
+                const extraLetter = document.createElement('span');
+                extraLetter.className = 'letter';
+                extraLetter.textContent = 'Y';
+                extraLetter.style.animationDelay = (baseWord.length * 0.2 + i * 0.2) + 's';
+                sorryText.appendChild(extraLetter);
+            }
+            
+            // Add emojis based on view count
+            const emojis = ['🥺', '😔', '😢', '💔', '🙏', '❤️'];
+            for (let i = 0; i < viewCount; i++) {
+                const emojiIndex = Math.min(i, emojis.length - 1);
+                const emojiSpan = document.createElement('span');
+                emojiSpan.className = 'letter';
+                emojiSpan.textContent = emojis[emojiIndex];
+                emojiSpan.style.animationDelay = (baseWord.length * 0.2 + viewCount * 0.2 + i * 0.2) + 's';
+                sorryText.appendChild(emojiSpan);
+            }
+        }
+        
+        // Create particle effect
+        function createParticles(x, y, color) {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating shape';
+                particle.style.width = '5px';
+                particle.style.height = '5px';
+                particle.style.background = color;
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.animation = 'none';
+                
+                document.body.appendChild(particle);
+                
+                // Animate particle
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 2 + Math.random() * 3;
+                const distance = 50 + Math.random() * 100;
+                
+                const animation = particle.animate([
+                    { transform: 'translate(0, 0)', opacity: 1 },
+                    { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`, opacity: 0 }
+                ], {
+                    duration: 800 + Math.random() * 500,
+                    easing: 'ease-out'
+                });
+                
+                // Remove particle after animation
+                animation.onfinish = () => {
+                    particle.remove();
+                };
+            }
+        }
+        
+        // Typewriter effect
+        function typeWriter(text, element, speed = 40) {
+            element.innerHTML = '';
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+        
+        // Initial setup
+        generateSorryText();
+        createFloatingShapes();
+        
+        // Button event listeners
+        document.getElementById('forgiveBtn').addEventListener('click', (e) => {
+            if (forgiveClicked) return;
+            forgiveClicked = true;
+            
+            // Create particle effect
+            const rect = e.target.getBoundingClientRect();
+            createParticles(rect.left + rect.width/2, rect.top + rect.height/2, '#00b09b');
+            
+            // Update message
+            const messageDisplay = document.getElementById('messageDisplay');
+            typeWriter('Thank you for your forgiveness. I appreciate your kindness.', messageDisplay);
+            
+            // Change button text
+            document.getElementById('forgiveBtn').innerHTML = '<i class="fas fa-check-circle"></i> Accepted';
+            document.getElementById('forgiveBtn').style.background = 'linear-gradient(to right, #00b09b, #00b09b)';
+            
+            // Reset counter after a delay and redirect
+            setTimeout(() => {
+                localStorage.setItem('apologyViewCount', '0');
+                window.location.href = 'bd.html';
+            }, 2500);
+        });
+        
+        document.getElementById('notForgiveBtn').addEventListener('click', (e) => {
+            // Increment view count
+            viewCount++;
+            localStorage.setItem('apologyViewCount', viewCount);
+            
+            // Update display
+            document.getElementById('clickCount').textContent = viewCount;
+            
+            // Regenerate the text with new letters/emojis
+            generateSorryText();
+            
+            // Create particle effect
+            const rect = e.target.getBoundingClientRect();
+            createParticles(rect.left + rect.width/2, rect.top + rect.height/2, '#ff416c');
+            
+            // Add visual feedback
+            const notForgiveBtn = document.getElementById('notForgiveBtn');
+            notForgiveBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                notForgiveBtn.style.transform = 'scale(1)';
+            }, 100);
+            
+            // Update message based on view count
+            const messages = [
+                "enma ippadi irruka pls pesuma.",
+                "na ini yosikama ethum pannamaten ma.",
+                "ini na kova kuda pada maten ma sorry.",
+                "nambuma marubadium na kova pada maten.",
+                "maa un kitta pesama irruka mudilama.",
+                "chellam la ippadi irruntha eppadimaa.",
+                "rendu vartha thitiyathu pesen pls."
+            ];
+            
+            const messageIndex = Math.min(viewCount - 1, messages.length - 1);
+            const messageDisplay = document.getElementById('messageDisplay');
+            typeWriter(messages[messageIndex], messageDisplay);
+        });
+        
+        // Heart button functionality
+        document.getElementById('heartBtn').addEventListener('click', () => {
+            const heartBtn = document.getElementById('heartBtn');
+            heartBtn.innerHTML = '<i class="fas fa-heart"></i>';
+            heartBtn.style.animation = 'pulse 0.5s';
+            
+            // Remove animation after it completes
+            setTimeout(() => {
+                heartBtn.style.animation = '';
+            }, 500);
+            
+            // Update message with a random heartfelt note
+            const notes = [
+                "enma ippadi irruka pls pesuma.",
+                "na ini yosikama ethum pannamaten ma.",
+                "ini na kova kuda pada maten ma sorry.",
+                "nambuma marubadium na kova pada maten.",
+                "maa un kitta pesama irruka mudilama.",
+                "chellam la ippadi irruntha eppadimaa.",
+                "rndu vartha thitiyathu pesen pls."
+            ];
+            
+            const randomNote = notes[Math.floor(Math.random() * notes.length)];
+            const messageDisplay = document.getElementById('messageDisplay');
+            typeWriter(randomNote, messageDisplay);
+        });
+    </script>
+</body>
 </html>
