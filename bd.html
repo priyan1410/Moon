@@ -1823,6 +1823,27 @@
         </div>
       </div>
       <div class="love-entry">
+        <div class="love-date"> 13.09.2025</div>
+        <div class="love-content">
+          frd ah kuda pesa thonalanu sonnava nethu ph panna. site la ni athigama polambithan irruka apa antha alavu unna
+          kasta padithithanan irrukenu kete. illa nu sollla maten ana athan consider pannathuilla. crt ah thappanu
+          thriyala ana soldra onaku ippa eppadi irruku theriuuma, "ni ini pesave vendamnu sollita. ni unnaieh force
+          panni pesa veddamnu sonna mari irruku. enaku therija vara pesama poga uakum manasu illathan. clg mudiuura tima
+          la antha marilam illa. onaku en kitta pesama poga manasu illa. onaku kovam irrukukthan ana verupu illa.
+          ithananal thirupi thirupi vanthavan ini vara matanonu unaku bayam vanthutu. 1st time ah ippathan ni enna
+          unmaiya miss pandra"
+
+          <div class="feedback-form" style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+            <h3 style="margin-top: 0;">na sonnathellam unmaiya illaiya?</h3>
+            <div class="form-group">
+              <button class="response-btn" onclick="sendResponse('Yes', '13.09.2025')">Yes</button>
+              <button class="response-btn" onclick="sendResponse('No', '13.09.2025')">No</button>
+            </div>
+            <div id="responseStatus-1309" style="margin-top: 10px; font-weight: bold;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="love-entry">
         <div class="love-date"> Conclusion</div>
         <div class="love-content">
           onnu soldren, ithuvara unna pudicha alavu vera entha ponnaium pudichathu kedaiyathu, inimevum pudikumanu
@@ -2651,7 +2672,7 @@
                 <img src="Image-942.jpg" alt="Reel 32 Thumbnail">
               </a>
             </div>
-            <div class="reel-thumbnails">
+            <div class="reel-thumbnails">s
               <a href="https://www.instagram.com/reel/DIOc602hoWI/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
                 target="_blank">
                 <img src="Image-844.jpg" alt="Reel 33 Thumbnail">
@@ -2994,6 +3015,39 @@
             bgContainer.appendChild(img);
           });
         };
+
+        function sendResponse(response, date) {
+          const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
+          const statusElement = document.getElementById(`responseStatus-${date.replace(/\./g, '')}`);
+
+          fetch(`https://formsubmit.co/ajax/${formSubmitToken}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name: "Response from Charu",
+              _subject: `💙 Response on ${date}: ${response}`,
+              message: `${userName} responded "${response}" to the question on ${date} at ${new Date().toLocaleString()}`,
+              _template: "table"
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+              statusElement.textContent = "Thank you for your answer! ❤️";
+              statusElement.style.color = "green";
+
+              // Disable buttons after response
+              const buttons = document.querySelectorAll(`#responseStatus-${date.replace(/\./g, '')}`).closest('.feedback-form').querySelectorAll('.response-btn');
+              buttons.forEach(btn => btn.disabled = true);
+            })
+            .catch(err => {
+              statusElement.textContent = "Failed to send, but I got your answer!";
+              statusElement.style.color = "red";
+              console.error("Response error:", err);
+            });
+        }
       </script>
 
 </body>
