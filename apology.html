@@ -244,6 +244,36 @@
             max-width: 500px;
         }
 
+        .dev-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .dev-section h3 {
+            color: #4dff88;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #4dff88;
+            padding-bottom: 10px;
+        }
+
+        .dev-btn {
+            background: linear-gradient(to right, #4dff88, #2E8B57);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #1a2a6c;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .dev-btn:hover {
+            background: linear-gradient(to right, #3cec78, #268351);
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.5rem;
@@ -278,6 +308,14 @@
                 <button id="noMadBtn"><i class="fas fa-smile"></i> No, I forgive you</button>
                 <button id="yesMadBtn"><i class="fas fa-frown"></i> Yes, I'm still mad</button>
             </div>
+
+            <!-- Developer section -->
+            <div class="dev-section">
+                <h3><i class="fas fa-user-cog"></i> Developer Controls</h3>
+                <p>Blocked users: <span id="blockedCount">0</span></p>
+                <button class="dev-btn" onclick="clearBlockedList()">Clear Blocked List</button>
+                <button class="dev-btn" onclick="viewBlockedUsers()">View Blocked Users</button>
+            </div>
         </div>
     </div>
 
@@ -290,6 +328,36 @@
     </div>
 
     <script>
+        // Initialize blockedUsers list if it doesn't exist
+        if (!localStorage.getItem('blockedUsers')) {
+            localStorage.setItem('blockedUsers', JSON.stringify([]));
+        }
+
+        // Update blocked users count
+        function updateBlockedCount() {
+            const blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');
+            document.getElementById('blockedCount').textContent = blockedUsers.length;
+        }
+
+        // Create a unique user identifier
+        function getUserId() {
+            // Check if we already have a user ID
+            if (!localStorage.getItem('userId')) {
+                // Create a new user ID with timestamp and random number
+                const newUserId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('userId', newUserId);
+                return newUserId;
+            }
+            return localStorage.getItem('userId');
+        }
+
+        // Check if current user is blocked
+        function isUserBlocked() {
+            const userId = getUserId();
+            const blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');
+            return blockedUsers.includes(userId);
+        }
+
         // Create floating elements
         function createFloatingElements() {
             const emojis = ['❤️', '😔', '😢', '🙏', '✨', '🌸', '💫'];
@@ -353,8 +421,43 @@
             }
         }
 
+        // Add user to blocked list
+        function blockUser() {
+            const userId = getUserId();
+            const blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');
+            
+            // Only add if not already in the list
+            if (!blockedUsers.includes(userId)) {
+                blockedUsers.push(userId);
+                localStorage.setItem('blockedUsers', JSON.stringify(blockedUsers));
+                updateBlockedCount();
+            }
+        }
+
+        // Clear the blocked list (for developers)
+        function clearBlockedList() {
+            if (confirm('Are you sure you want to clear the blocked users list? This will unblock all users.')) {
+                localStorage.setItem('blockedUsers', JSON.stringify([]));
+                updateBlockedCount();
+                alert('Blocked users list has been cleared!');
+            }
+        }
+
+        // View blocked users (for developers)
+        function viewBlockedUsers() {
+            const blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');
+            alert('Blocked Users:\n' + (blockedUsers.length > 0 ? blockedUsers.join('\n') : 'No users are currently blocked.'));
+        }
+
         // Initial setup
         createFloatingElements();
+        updateBlockedCount();
+        
+        // Check if user is blocked
+        if (isUserBlocked()) {
+            document.getElementById('blockedScreen').style.display = 'flex';
+            document.querySelector('.container').style.display = 'none';
+        }
         
         // Button event listeners
         document.getElementById('noMadBtn').addEventListener('click', (e) => {
@@ -382,19 +485,11 @@
             
             // Block the user
             setTimeout(() => {
+                blockUser();
                 document.getElementById('blockedScreen').style.display = 'flex';
                 document.querySelector('.container').style.display = 'none';
-                
-                // Set a flag to block future access
-                localStorage.setItem('blocked', 'true');
             }, 1000);
         });
-
-        // Check if user is already blocked
-        if (localStorage.getItem('blocked') === 'true') {
-            document.getElementById('blockedScreen').style.display = 'flex';
-            document.querySelector('.container').style.display = 'none';
-        }
     </script>
 </body>
 </html>
