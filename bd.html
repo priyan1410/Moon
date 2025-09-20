@@ -3140,6 +3140,141 @@
               console.error("Response error:", err);
             });
         }
+
+// Function to show notification
+function showClickNotification(mediaType, mediaSrc) {
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 10000;
+    max-width: 300px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+  `;
+  
+  // Add styles for animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Set notification content
+  const fileName = mediaSrc.split('/').pop();
+  notification.innerHTML = `
+    <div style="font-weight: bold; margin-bottom: 5px;">
+      ${mediaType === 'image' ? '📸' : '🎥'} Media Clicked
+    </div>
+    <div style="font-size: 14px; overflow: hidden; text-overflow: ellipsis;">
+      ${fileName}
+    </div>
+    <div style="font-size: 12px; color: #aaa; margin-top: 5px;">
+      ${new Date().toLocaleTimeString()}
+    </div>
+  `;
+  
+  // Add to page
+  document.body.appendChild(notification);
+  
+  // Remove after 3 seconds
+  setTimeout(() => {
+    notification.style.animation = 'fadeOut 0.5s ease';
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 500);
+  }, 3000);
+  
+  // Add fadeOut animation
+  if (!document.querySelector('style[data-notification-anim]')) {
+    const fadeOutStyle = document.createElement('style');
+    fadeOutStyle.setAttribute('data-notification-anim', 'true');
+    fadeOutStyle.textContent = `
+      @keyframes fadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(20px); }
+      }
+    `;
+    document.head.appendChild(fadeOutStyle);
+  }
+  
+  // Log to console (for debugging)
+  console.log(`${mediaType.toUpperCase()} CLICKED: ${mediaSrc} at ${new Date().toLocaleTimeString()}`);
+  
+  // Here you could send this data to a server if you have one
+  // sendToServer(mediaType, mediaSrc);
+}
+
+// Function to set up tracking for all media
+function setupMediaTracking() {
+  // Track image clicks
+  document.querySelectorAll('.thumbnail img, .gallery img, .wts-thumbnail img').forEach(img => {
+    img.addEventListener('click', function() {
+      showClickNotification('image', this.src);
+    });
+  });
+  
+  // Track video clicks (both thumbnails and lightbox videos)
+  document.querySelectorAll('.gallery-video, .lightbox-video').forEach(video => {
+    video.addEventListener('click', function() {
+      const source = this.querySelector('source');
+      showClickNotification('video', source ? source.src : 'Video element');
+    });
+  });
+  
+  // Also track when lightbox is opened (for the main lightbox videos)
+  document.querySelectorAll('.thumbnail').forEach(thumb => {
+    thumb.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('#videopreview')) {
+        setTimeout(() => {
+          const lightboxVideo = document.querySelector(`${href} video`);
+          if (lightboxVideo) {
+            const source = lightboxVideo.querySelector('source');
+            showClickNotification('video', source ? source.src : 'Lightbox video');
+          }
+        }, 300); // Small delay to allow lightbox to open
+      }
+    });
+  });
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', setupMediaTracking);
+
+// Optional: Function to send data to server
+function sendToServer(mediaType, mediaSrc) {
+  // This would require a backend endpoint
+  /*
+  fetch('/api/track-media-click', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      type: mediaType,
+      src: mediaSrc,
+      timestamp: new Date().toISOString(),
+      page: window.location.href
+    })
+  })
+  .then(response => response.json())
+  .then(data => console.log('Success:', data))
+  .catch(error => console.error('Error:', error));
+  */
+}
       </script>
 
 </body>
