@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unblock Users - Developer Guide</title>
+    <title>Blocked Users Storage Location</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -101,6 +101,15 @@
             overflow-x: auto;
             border-left: 4px solid #4dff88;
             position: relative;
+            line-height: 1.5;
+        }
+
+        .line-number {
+            display: inline-block;
+            width: 30px;
+            color: #4dff88;
+            user-select: none;
+            opacity: 0.7;
         }
 
         .code-highlight {
@@ -196,6 +205,19 @@
             display: block;
         }
 
+        .storage-location {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .storage-location h3 {
+            color: #4dff88;
+            margin-bottom: 10px;
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.2rem;
@@ -215,108 +237,126 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-user-cog"></i> Unblock Users - Developer Guide</h1>
-            <p>Learn exactly which parts of the code to modify to unblock users</p>
+            <h1><i class="fas fa-database"></i> Blocked Users Storage Location</h1>
+            <p>See exactly where blocked users are stored in the code</p>
         </div>
         
         <div class="dev-panel">
-            <h2>Code Modification Points</h2>
+            <h2>Blocked Users Storage</h2>
             
             <div class="instruction">
                 <span class="instruction-number">1</span>
-                To unblock users, you need to modify these specific parts of your code:
+                Blocked users are stored in localStorage with the key <span class="code-highlight">'blockedUsers'</span>.
+                Here's the exact code that handles this:
             </div>
             
             <div class="code-tabs">
-                <div class="code-tab active" onclick="showCode(0)">Blocking Logic</div>
-                <div class="code-tab" onclick="showCode(1)">User Check</div>
-                <div class="code-tab" onclick="showCode(2)">Clear List</div>
+                <div class="code-tab active" onclick="showCode(0)">Initialization</div>
+                <div class="code-tab" onclick="showCode(1)">Adding Users</div>
+                <div class="code-tab" onclick="showCode(2)">Checking Users</div>
+                <div class="code-tab" onclick="showCode(3)">Removing Users</div>
             </div>
             
             <div class="code-content active">
                 <div class="code-block">
-                    <span class="code-comment">// In your blocking function - Remove or comment out:</span><br>
-                    <span class="code-highlight">localStorage.setItem('blocked', 'true');</span><br><br>
-                    
-                    <span class="code-comment">// Replace with this to unblock:</span><br>
-                    <span class="code-comment">// localStorage.setItem('blocked', 'false');</span><br>
-                    <span class="code-comment">// OR remove the line entirely</span>
+                    <div><span class="line-number">1</span> <span class="code-comment">// Initialize blockedUsers list if it doesn't exist</span></div>
+                    <div><span class="line-number">2</span> if (!localStorage.getItem('blockedUsers')) {</div>
+                    <div><span class="line-number">3</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-highlight">localStorage.setItem('blockedUsers', JSON.stringify([]));</span></div>
+                    <div><span class="line-number">4</span> }</div>
                 </div>
             </div>
             
             <div class="code-content">
                 <div class="code-block">
-                    <span class="code-comment">// In your user check function - Modify this condition:</span><br>
-                    if (<span class="code-highlight">localStorage.getItem('blocked') === 'true'</span>) {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Show blocked screen</span><br>
-                    }<br><br>
-                    
-                    <span class="code-comment">// Change to always return false:</span><br>
-                    if (<span class="code-highlight">false</span>) { <span class="code-comment">// localStorage.getItem('blocked') === 'true'</span><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// This code will never execute now</span><br>
-                    }
+                    <div><span class="line-number">1</span> <span class="code-comment">// Add user to blocked list</span></div>
+                    <div><span class="line-number">2</span> function blockUser() {</div>
+                    <div><span class="line-number">3</span> &nbsp;&nbsp;&nbsp;&nbsp;const userId = getUserId();</div>
+                    <div><span class="line-number">4</span> &nbsp;&nbsp;&nbsp;&nbsp;const blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');</div>
+                    <div><span class="line-number">5</span> </div>
+                    <div><span class="line-number">6</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Only add if not already in the list</span></div>
+                    <div><span class="line-number">7</span> &nbsp;&nbsp;&nbsp;&nbsp;if (!blockedUsers.includes(userId)) {</div>
+                    <div><span class="line-number">8</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockedUsers.push(userId);</div>
+                    <div><span class="line-number">9</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-highlight">localStorage.setItem('blockedUsers', JSON.stringify(blockedUsers));</span></div>
+                    <div><span class="line-number">10</span> &nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                    <div><span class="line-number">11</span> }</div>
                 </div>
             </div>
             
             <div class="code-content">
                 <div class="code-block">
-                    <span class="code-comment">// To clear the blocked users list, add this function:</span><br>
-                    function clearBlockedList() {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-highlight">localStorage.removeItem('blockedUsers');</span><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// OR initialize empty array</span><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// localStorage.setItem('blockedUsers', JSON.stringify([]));</span><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;alert('Blocked users list cleared!');<br>
-                    }
+                    <div><span class="line-number">1</span> <span class="code-comment">// Check if current user is blocked</span></div>
+                    <div><span class="line-number">2</span> function isUserBlocked() {</div>
+                    <div><span class="line-number">3</span> &nbsp;&nbsp;&nbsp;&nbsp;const userId = getUserId();</div>
+                    <div><span class="line-number">4</span> &nbsp;&nbsp;&nbsp;&nbsp;const blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');</div>
+                    <div><span class="line-number">5</span> &nbsp;&nbsp;&nbsp;&nbsp;return <span class="code-highlight">blockedUsers.includes(userId)</span>;</div>
+                    <div><span class="line-number">6</span> }</div>
                 </div>
+            </div>
+            
+            <div class="code-content">
+                <div class="code-block">
+                    <div><span class="line-number">1</span> <span class="code-comment">// Remove user from blocked list</span></div>
+                    <div><span class="line-number">2</span> function unblockUser(userId) {</div>
+                    <div><span class="line-number">3</span> &nbsp;&nbsp;&nbsp;&nbsp;let blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');</div>
+                    <div><span class="line-number">4</span> &nbsp;&nbsp;&nbsp;&nbsp;blockedUsers = blockedUsers.filter(id => id !== userId);</div>
+                    <div><span class="line-number">5</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-highlight">localStorage.setItem('blockedUsers', JSON.stringify(blockedUsers));</span></div>
+                    <div><span class="line-number">6</span> }</div>
+                </div>
+            </div>
+            
+            <div class="storage-location">
+                <h3><i class="fas fa-info-circle"></i> Storage Location Details</h3>
+                <p><strong>Storage Method:</strong> localStorage</p>
+                <p><strong>Key:</strong> 'blockedUsers'</p>
+                <p><strong>Data Format:</strong> JSON array of user IDs</p>
+                <p><strong>Example:</strong> ["user_123456789", "user_987654321"]</p>
             </div>
             
             <div class="instruction">
                 <span class="instruction-number">2</span>
-                You can also manually clear the localStorage for testing:
+                You can manually view or clear the blocked users list:
             </div>
             
-            <button class="btn" onclick="clearStorage()">
-                <i class="fas fa-trash"></i> Clear localStorage Now
+            <button class="btn" onclick="viewBlockedUsers()">
+                <i class="fas fa-eye"></i> View Blocked Users
+            </button>
+            
+            <button class="btn btn-danger" onclick="clearBlockedUsers()">
+                <i class="fas fa-trash"></i> Clear All Blocked Users
             </button>
             
             <div id="statusMessage" class="status"></div>
             
-            <h2>Complete Unblock Solution</h2>
+            <h2>How to Unblock Specific Users</h2>
             
             <div class="code-block">
-                <span class="code-comment">// To completely remove blocking functionality:</span><br>
-                <span class="code-comment">// 1. Remove all localStorage.setItem('blocked', 'true') calls</span><br>
-                <span class="code-comment">// 2. Remove or disable the user check</span><br>
-                <span class="code-comment">// 3. Remove the blocked screen HTML element</span><br><br>
-                
-                <span class="code-comment">// Alternative: Add a developer override</span><br>
-                var developerMode = true; <span class="code-comment">// Set to false in production</span><br>
-                if (localStorage.getItem('blocked') === 'true' <span class="code-highlight">&& !developerMode</span>) {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Show blocked screen</span><br>
-                }
+                <div><span class="line-number">1</span> <span class="code-comment">// To unblock a specific user, call:</span></div>
+                <div><span class="line-number">2</span> unblockUser('user_id_to_remove');</div>
+                <div><span class="line-number">3</span> </div>
+                <div><span class="line-number">4</span> <span class="code-comment">// To unblock all users, use:</span></div>
+                <div><span class="line-number">5</span> <span class="code-highlight">localStorage.setItem('blockedUsers', JSON.stringify([]));</span></div>
+                <div><span class="line-number">6</span> </div>
+                <div><span class="line-number">7</span> <span class="code-comment">// Or completely remove the storage:</span></div>
+                <div><span class="line-number">8</span> <span class="code-highlight">localStorage.removeItem('blockedUsers');</span></div>
             </div>
             
             <div class="instruction">
                 <span class="instruction-number">3</span>
-                For user-specific blocking, modify the user check:
+                The user ID is generated using this function:
             </div>
             
             <div class="code-block">
-                <span class="code-comment">// Instead of checking a simple flag:</span><br>
-                if (localStorage.getItem('blocked') === 'true') {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;showBlockedScreen();<br>
-                }<br><br>
-                
-                <span class="code-comment">// Use a list of blocked users:</span><br>
-                var blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');<br>
-                var userId = getCurrentUserId(); <span class="code-comment">// Your user identification method</span><br>
-                if (<span class="code-highlight">blockedUsers.includes(userId)</span>) {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;showBlockedScreen();<br>
-                }<br><br>
-                
-                <span class="code-comment">// To unblock a specific user:</span><br>
-                blockedUsers = blockedUsers.filter(id => id !== userIdToUnblock);<br>
-                localStorage.setItem('blockedUsers', JSON.stringify(blockedUsers));
+                <div><span class="line-number">1</span> <span class="code-comment">// Create a unique user identifier</span></div>
+                <div><span class="line-number">2</span> function getUserId() {</div>
+                <div><span class="line-number">3</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Check if we already have a user ID</span></div>
+                <div><span class="line-number">4</span> &nbsp;&nbsp;&nbsp;&nbsp;if (!localStorage.getItem('userId')) {</div>
+                <div><span class="line-number">5</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Create a new user ID with timestamp and random number</span></div>
+                <div><span class="line-number">6</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const newUserId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);</div>
+                <div><span class="line-number">7</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;localStorage.setItem('userId', newUserId);</div>
+                <div><span class="line-number">8</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return newUserId;</div>
+                <div><span class="line-number">9</span> &nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                <div><span class="line-number">10</span> &nbsp;&nbsp;&nbsp;&nbsp;return localStorage.getItem('userId');</div>
+                <div><span class="line-number">11</span> }</div>
             </div>
         </div>
     </div>
@@ -340,17 +380,28 @@
             }
         }
         
-        // Clear localStorage
-        function clearStorage() {
-            localStorage.removeItem('blocked');
-            localStorage.removeItem('blockedUsers');
-            const statusMessage = document.getElementById('statusMessage');
-            statusMessage.textContent = '✅ localStorage cleared! All users are now unblocked.';
-            statusMessage.className = 'status success';
-            
-            setTimeout(() => {
-                statusMessage.style.display = 'none';
-            }, 3000);
+        // View blocked users
+        function viewBlockedUsers() {
+            const blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');
+            if (blockedUsers.length === 0) {
+                alert('No users are currently blocked.');
+            } else {
+                alert('Blocked Users:\n' + blockedUsers.join('\n'));
+            }
+        }
+        
+        // Clear blocked users
+        function clearBlockedUsers() {
+            if (confirm('Are you sure you want to clear ALL blocked users?')) {
+                localStorage.setItem('blockedUsers', JSON.stringify([]));
+                const statusMessage = document.getElementById('statusMessage');
+                statusMessage.textContent = '✅ All blocked users have been cleared!';
+                statusMessage.className = 'status success';
+                
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                }, 3000);
+            }
         }
         
         // Show code tab
