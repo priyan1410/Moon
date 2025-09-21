@@ -1936,6 +1936,24 @@
         </div>
       </div>
       <div class="love-entry">
+        <div class="love-date"> 21.09.2025</div>
+        <div class="love-content">
+          daily daily site ah patha mattum na enna content ah poduven ni ethathu pesunathana poda ethum content irrukum.
+          ni en kitta pesalana un kitta pesanum pola irrrkum athan. ana ipalam pesanum pola irrku ana enkitta pesa
+          perusa onnum illa. enaku unkitta pesite irrukanum content irruko illaiyo ana ippa lam pesa orumari bayama
+          yosanaiya irrukuma. enga na ethathu pesa poi onaku aathu pudikama poidumonu. enaku oru mari confusa pressure
+          ah irruka enna pannanum enna panna porenu. enaku theriyala just go with flow nu poga mudiyala. ethachum
+          pannalam nu patha ni enna nenachupanu theriyala. ippa enaku unmaiyave theriyala ennaiya ni ennava pakuranu.
+          ippalam na perusa unaku nabagavum vara mata. enakulam na ellarukuda irrunthalum ni en mind laiehthan irrupa,
+          ana unaku apdi kedaiyathunu enaku therium. pesathanbayama irrukuna seri pathutathu vallamnu patha vida
+          matranga. onaku na unna love pandranum therium entha alavu pandranum therium soo ini na entha effor um poda
+          porathu illa, nenacha pannuven avalothan. ok soldratho illa reject pandratho illa aprom pathukalamnu waiting
+          list la vachipiyo ini oh padu. 5 6 varsham kalichu enna pudichu irrukunu vanthalum seri, illa apdieh tholla
+          olinjuthunu kalati vittalum seri 0 x 100 = 0 than. but one thing my love never change😊 even i get a marry with 
+          other girl.
+        </div>
+      </div>
+      <div class="love-entry">
         <div class="love-date"> Conclusion</div>
         <div class="love-content">
           onnu soldren, ithuvara unna pudicha alavu vera entha ponnaium pudichathu kedaiyathu, inimevum pudikumanu
@@ -3141,11 +3159,11 @@
             });
         }
 
-// Function to show notification
-function showClickNotification(mediaType, mediaSrc) {
-  // Create notification element
-  const notification = document.createElement('div');
-  notification.style.cssText = `
+        // Function to show notification
+        function showClickNotification(mediaType, mediaSrc) {
+          // Create notification element
+          const notification = document.createElement('div');
+          notification.style.cssText = `
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -3159,20 +3177,20 @@ function showClickNotification(mediaType, mediaSrc) {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     animation: fadeIn 0.3s ease;
   `;
-  
-  // Add styles for animation
-  const style = document.createElement('style');
-  style.textContent = `
+
+          // Add styles for animation
+          const style = document.createElement('style');
+          style.textContent = `
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
   `;
-  document.head.appendChild(style);
-  
-  // Set notification content
-  const fileName = mediaSrc.split('/').pop();
-  notification.innerHTML = `
+          document.head.appendChild(style);
+
+          // Set notification content
+          const fileName = mediaSrc.split('/').pop();
+          notification.innerHTML = `
     <div style="font-weight: bold; margin-bottom: 5px;">
       ${mediaType === 'image' ? '📸' : '🎥'} Media Clicked
     </div>
@@ -3183,98 +3201,98 @@ function showClickNotification(mediaType, mediaSrc) {
       ${new Date().toLocaleTimeString()}
     </div>
   `;
-  
-  // Add to page
-  document.body.appendChild(notification);
-  
-  // Remove after 3 seconds
-  setTimeout(() => {
-    notification.style.animation = 'fadeOut 0.5s ease';
-    setTimeout(() => {
-      if (notification.parentNode) {
-        notification.parentNode.removeChild(notification);
-      }
-    }, 500);
-  }, 3000);
-  
-  // Add fadeOut animation
-  if (!document.querySelector('style[data-notification-anim]')) {
-    const fadeOutStyle = document.createElement('style');
-    fadeOutStyle.setAttribute('data-notification-anim', 'true');
-    fadeOutStyle.textContent = `
+
+          // Add to page
+          document.body.appendChild(notification);
+
+          // Remove after 3 seconds
+          setTimeout(() => {
+            notification.style.animation = 'fadeOut 0.5s ease';
+            setTimeout(() => {
+              if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+              }
+            }, 500);
+          }, 3000);
+
+          // Add fadeOut animation
+          if (!document.querySelector('style[data-notification-anim]')) {
+            const fadeOutStyle = document.createElement('style');
+            fadeOutStyle.setAttribute('data-notification-anim', 'true');
+            fadeOutStyle.textContent = `
       @keyframes fadeOut {
         from { opacity: 1; transform: translateY(0); }
         to { opacity: 0; transform: translateY(20px); }
       }
     `;
-    document.head.appendChild(fadeOutStyle);
-  }
-  
-  // Log to console (for debugging)
-  console.log(`${mediaType.toUpperCase()} CLICKED: ${mediaSrc} at ${new Date().toLocaleTimeString()}`);
-  
-  // Here you could send this data to a server if you have one
-  // sendToServer(mediaType, mediaSrc);
-}
-
-// Function to set up tracking for all media
-function setupMediaTracking() {
-  // Track image clicks
-  document.querySelectorAll('.thumbnail img, .gallery img, .wts-thumbnail img').forEach(img => {
-    img.addEventListener('click', function() {
-      showClickNotification('image', this.src);
-    });
-  });
-  
-  // Track video clicks (both thumbnails and lightbox videos)
-  document.querySelectorAll('.gallery-video, .lightbox-video').forEach(video => {
-    video.addEventListener('click', function() {
-      const source = this.querySelector('source');
-      showClickNotification('video', source ? source.src : 'Video element');
-    });
-  });
-  
-  // Also track when lightbox is opened (for the main lightbox videos)
-  document.querySelectorAll('.thumbnail').forEach(thumb => {
-    thumb.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      if (href && href.startsWith('#videopreview')) {
-        setTimeout(() => {
-          const lightboxVideo = document.querySelector(`${href} video`);
-          if (lightboxVideo) {
-            const source = lightboxVideo.querySelector('source');
-            showClickNotification('video', source ? source.src : 'Lightbox video');
+            document.head.appendChild(fadeOutStyle);
           }
-        }, 300); // Small delay to allow lightbox to open
-      }
-    });
-  });
-}
 
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', setupMediaTracking);
+          // Log to console (for debugging)
+          console.log(`${mediaType.toUpperCase()} CLICKED: ${mediaSrc} at ${new Date().toLocaleTimeString()}`);
 
-// Optional: Function to send data to server
-function sendToServer(mediaType, mediaSrc) {
-  // This would require a backend endpoint
-  /*
-  fetch('/api/track-media-click', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      type: mediaType,
-      src: mediaSrc,
-      timestamp: new Date().toISOString(),
-      page: window.location.href
-    })
-  })
-  .then(response => response.json())
-  .then(data => console.log('Success:', data))
-  .catch(error => console.error('Error:', error));
-  */
-}
+          // Here you could send this data to a server if you have one
+          // sendToServer(mediaType, mediaSrc);
+        }
+
+        // Function to set up tracking for all media
+        function setupMediaTracking() {
+          // Track image clicks
+          document.querySelectorAll('.thumbnail img, .gallery img, .wts-thumbnail img').forEach(img => {
+            img.addEventListener('click', function () {
+              showClickNotification('image', this.src);
+            });
+          });
+
+          // Track video clicks (both thumbnails and lightbox videos)
+          document.querySelectorAll('.gallery-video, .lightbox-video').forEach(video => {
+            video.addEventListener('click', function () {
+              const source = this.querySelector('source');
+              showClickNotification('video', source ? source.src : 'Video element');
+            });
+          });
+
+          // Also track when lightbox is opened (for the main lightbox videos)
+          document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function (e) {
+              const href = this.getAttribute('href');
+              if (href && href.startsWith('#videopreview')) {
+                setTimeout(() => {
+                  const lightboxVideo = document.querySelector(`${href} video`);
+                  if (lightboxVideo) {
+                    const source = lightboxVideo.querySelector('source');
+                    showClickNotification('video', source ? source.src : 'Lightbox video');
+                  }
+                }, 300); // Small delay to allow lightbox to open
+              }
+            });
+          });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', setupMediaTracking);
+
+        // Optional: Function to send data to server
+        function sendToServer(mediaType, mediaSrc) {
+          // This would require a backend endpoint
+          /*
+          fetch('/api/track-media-click', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              type: mediaType,
+              src: mediaSrc,
+              timestamp: new Date().toISOString(),
+              page: window.location.href
+            })
+          })
+          .then(response => response.json())
+          .then(data => console.log('Success:', data))
+          .catch(error => console.error('Error:', error));
+          */
+        }
       </script>
 
 </body>
