@@ -1,33 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
 
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, #FDF5AA 1px, transparent 1px);
-  background-size: 60px 60px;
-  animation: backgroundScroll 60s linear infinite;
-  z-index: -3;
-  opacity: 0.2;
-}
-
-@keyframes backgroundScroll {
-  from {
-    transform: translate(0, 0);
-  }
-
-  to {
-    transform: translate(-100px, -100px);
-  }
-}
-
 body {
-  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-family: 'Segoe UI', cursive, sans-serif;
+  background: url("bg.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  color: #2c3e50;
+  text-align: center;
+  position: relative;
+  overflow-x: hidden;
 }
+/* Remove gradient backgrounds */
+body::before {
+  content: none !important;
+}
+
+/* Remove conflicting background properties */
+/* Delete this entire duplicate body rule:
+body {
+  margin: 0;
+  font-family: 'Segoe UI', cursive, sans-serif;
+  background: linear-gradient(to bottom right, #fffbde, #ffffe2);
+  color: #2c3e50;
+  text-align: center;
+  position: relative;
+  overflow-x: hidden;
+}
+*/
+
 
 h1 {
   font-size: 3.5em;
