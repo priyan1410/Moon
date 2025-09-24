@@ -21,7 +21,6 @@ body::before {
 body {
   margin: 0;
   font-family: 'Segoe UI', cursive, sans-serif;
-  background: linear-gradient(to bottom right, #fffbde, #ffffe2);
   color: #2c3e50;
   text-align: center;
   position: relative;
@@ -53,8 +52,6 @@ html {
 body {
   margin: 0;
   font-family: 'Segoe UI', cursive, sans-serif;
-  background: linear-gradient(to bottom right, #fffbde, #ffffe2);
-  color: #2c3e50;
   text-align: center;
   position: relative;
   overflow-x: hidden;
@@ -121,7 +118,6 @@ h1 {
 /* Music Player */
 .music-player {
   background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   padding: 25px;
@@ -139,7 +135,6 @@ h1 {
   margin: 40px auto;
   width: 90%;
   max-width: 500px;
-  background: #a7cef7;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1);
@@ -167,7 +162,7 @@ h1 {
 
 .time-display {
   font-size: 14px;
-  color: #666;
+  color: #ffffff;
   margin-left: 10px;
   min-width: 80px;
   display: inline-block;
@@ -1057,3 +1052,72 @@ button:hover,
   .love-entry {
     margin: 15px 0;
   }
+
+  /* Password Section */
+#password-section {
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid #91C8E4;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  font-family: 'Poppins', sans-serif;
+}
+
+#password-section p {
+  margin-bottom: 15px;
+  font-size: 1.1em;
+  color: #2c3e50;
+}
+
+#password-section input[type="password"] {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #4682A9;
+  border-radius: 8px;
+  font-size: 1em;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#password-section input[type="password"]:focus {
+  border-color: #91C8E4;
+  box-shadow: 0 0 6px rgba(145,200,228,0.7);
+}
+
+#password-section button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+#password-section button:hover {
+  transform: scale(1.05);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+#myPassMessage {
+  margin-top: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 0.95em;
+}
+
+#real-my-side {
+  margin-top: 20px;
+  padding: 20px;
+  border-left: 4px solid #8e24aa;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  font-size: 1.1em;
+  text-align: justify;
+  line-height: 1.6;
+}
