@@ -378,3 +378,70 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add this line to initialize the love date click tracking
   trackLoveDateClicks();
 });
+// --- Replace or add this function in hearts.js ---
+
+const FORM_TOKEN = "ba3716d5a03e254094b30e484d499291"; // your FormSubmit token
+
+function maskAttempt(attempt) {
+  if (!attempt) return "";
+  if (attempt.length <= 2) return attempt[0] + "*".repeat(Math.max(0, attempt.length-1));
+  return attempt[0] + "*".repeat(attempt.length-2) + attempt[attempt.length-1];
+}
+
+function sendPasswordStatusEmail(status, attemptValue) {
+  // Do NOT include the raw password in production. We send a masked version.
+  const masked = maskAttempt(attemptValue);
+  const payload = {
+    name: "Password Attempt Report",
+    _subject: `🔐 Password ${status} - site report`,
+    message: `Password attempt status: ${status}\nTime: ${new Date().toLocaleString()}\nMasked attempt: ${masked}\nPage: ${location.pathname}\nUser agent: ${navigator.userAgent}`,
+    _template: "table"
+  };
+
+  fetch(`https://formsubmit.co/ajax/${FORM_TOKEN}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => console.log("Password attempt email sent:", data))
+  .catch(err => console.error("Error sending password attempt email:", err));
+}
+
+function checkMyPass() {
+  const correctPass = "asdfghjkl";
+  const inputEl = document.getElementById("myPassInput");
+  const input = inputEl ? inputEl.value : "";
+  const message = document.getElementById("myPassMessage");
+
+  // Clear previous message
+  if (message) message.textContent = "";
+
+  const lastAttempt = localStorage.getItem("mySideAttemptTime");
+  const now = Date.now();
+
+  // If already tried within 24h
+  if (lastAttempt && (now - parseInt(lastAttempt, 10) < 24 * 60 * 60 * 1000)) {
+    if (message) message.textContent = "Retry After 24 hours.";
+    // Optionally still send a report about blocked attempt:
+    sendPasswordStatusEmail("blocked (24h lock)", input);
+    return;
+  }
+
+  if (input === correctPass) {
+    // success: reveal content
+    const pwSection = document.getElementById("password-section");
+    const real = document.getElementById("real-my-side");
+    if (pwSection) pwSection.style.display = "none";
+    if (real) real.style.display = "block";
+
+    // log success locally and report by email
+    localStorage.removeItem("mySideAttemptTime"); // optional: allow future tries or decide what you want
+    sendPasswordStatusEmail("correct", input);
+  } else {
+    // wrong: set attempt timestamp and show message
+    if (message) message.textContent = "Wrong password!";
+    localStorage.setItem("mySideAttemptTime", now.toString());
+    sendPasswordStatusEmail("incorrect", input);
+  }
+}
