@@ -409,7 +409,7 @@ function sendPasswordStatusEmail(status, attemptValue) {
 }
 
 function checkMyPass() {
-  const correctPass = "asdfghjkl";
+  const correctPass = "padhulovescharu";
   const inputEl = document.getElementById("myPassInput");
   const input = inputEl ? inputEl.value : "";
   const message = document.getElementById("myPassMessage");
