@@ -17,22 +17,22 @@
     .love-date {
       cursor: pointer;
       padding: 10px;
-      background-color: #91C8E4;
+      background-color: rgba(255, 255, 255, 0.5);
       font-weight: bold;
       border-radius: 8px;
       user-select: none;
     }
 
     .love-date:hover {
-      background-color: #4682A9;
+      background-color: #ffffff;
     }
 
     .love-content {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.15em;
       line-height: 1.9;
-      color: #2c3e50;
-
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.25);
       text-align: justify;
       line-height: 1.8;
       display: none;
@@ -1995,6 +1995,41 @@
           varuven. ana ennaium love panna vacha modha ponnu nithandi🥹. unna avalo easy ah vda maten🥹.
         </div>
       </div>
+      <div class="love-entry" id="my-side-entry">
+        <div class="love-date">My Side</div>
+        <div class="love-content" id="my-side-content">
+          <div id="password-section">
+            <p>This section is locked.<br>
+            Hint:--</p>
+            <input type="password" id="myPassInput" placeholder="Enter password">
+            <button onclick="checkMyPass()">Submit</button>
+            <p id="myPassMessage" style="color:red; font-weight:bold;"></p>
+          </div>
+          <div id="real-my-side" style="display:none;">
+            <p>
+              ithula ni panna sila vizhiyam enaku eppadi irrnthunu... onaku ennaiya pudikum ana vendam nu illa unaku
+              enkkuda life ah run panna istam illama illa. pannalam nu sollitu mudiyalana enna pandrathunuthan yosikura.
+              unaku antha 100% vallathan ana unaku enna poo vidavum manasu illathan, neraiya time poo nu vittuduva, athu
+              vanthu ini um unnala na kasta pada kudathunuthan solluvieh thavira onaku enna poo nu solla muzhu manasalam
+              kedaiyathuthan, simple ah soldrane, annaiku train la kai vdu nu solli vittathuku ni ketala "v2 na
+              vittuduviyada idiot nu". then ni ini pesatha poo solli na pona ni en "poo nu sonna poiduviya nu" ni en
+              kitta kekalanalum manasu kulla nenaika vaipu irrukula. en na onak therium na thirupi un kitta than
+              varuvanu. unaku en mela love la full nambika vallathan ana unna vitta na poga matanu oanku nambika irrku.
+              ippaiume neraiya sandaiku apromum seri. onaku en mela kovam irrunthalum munnadi na un manasula enga epadi
+              irrunthano enaku therinju ippavum apadieh than irruken. ni atha expos pannalanalum seri onaku apdithan
+              irrukonu enaku thonuthu. enaku therinju vara ni enaku love ku ok solla mata ana kandi pa marriage ku
+              solluva, ana athuku ni step edupiyanu enaku theriyala. ana ippavum onaku antha thought irruku enkuda life
+              ah run panna nalla irrukkum nu. enaku theriju vara ni nadula sila time yosichu irrupa 100% vallanalum
+              parava illa ok sollluvomanu. ana commitment kulla poga vendamnu nenachu sollavendamnu irunthu irrupa.
+              charumaa ni expose panna mattum than enaku theriyanumnu illa sila neram enake thonum ni eppadi irruka enna
+              yosikuranu eventhough i cant see you. oruvela ithuthan men in love pola. enna analum seri i love you. ippa
+              illanalum seri epo onaku apdi thonutho nium sollu, i will do anyting, us to be together forever. evan enna
+              pannalum seri.
+            </p>
+          </div>
+        </div>
+      </div>
+
 
 
       <h1>🌕I Love You💙</h1>
@@ -3174,6 +3209,7 @@
       </script>
 
       <script>
+        /*
         window.onload = function () {
           const images = [
             "IMG-20250323-WA0003.jpg",
@@ -3224,7 +3260,7 @@
 
             bgContainer.appendChild(img);
           });
-        };
+        };*/
 
         function sendResponse(response, date) {
           const formSubmitToken = "ba3716d5a03e254094b30e484d499291";
