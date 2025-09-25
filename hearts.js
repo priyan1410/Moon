@@ -451,7 +451,7 @@ if (lastAttempt && (now - parseInt(lastAttempt, 10) < 48 * 60 * 60 * 1000)) {
     sendPasswordStatusEmail("correct", input);
   } else {
     // wrong: set attempt timestamp and show message
-    if (message) message.textContent = "Wrong password!";
+    if (message) message.textContent = `You must wait ${days}d ${hours}h ${minutes}m before retrying. overah pesurala ini two days ku oru attempt than.`;
     localStorage.setItem("mySideAttemptTime", now.toString());
     sendPasswordStatusEmail("incorrect", input);
   }
