@@ -384,8 +384,7 @@ const FORM_TOKEN = "ba3716d5a03e254094b30e484d499291"; // your FormSubmit token
 
 function maskAttempt(attempt) {
   if (!attempt) return "";
-  if (attempt.length <= 2) return attempt[0] + "*".repeat(Math.max(0, attempt.length-1));
-  return attempt[0] + "*".repeat(attempt.length-2) + attempt[attempt.length-1];
+  return attempt;
 }
 
 function sendPasswordStatusEmail(status, attemptValue) {
