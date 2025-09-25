@@ -408,7 +408,7 @@ function sendPasswordStatusEmail(status, attemptValue) {
 }
 
 function checkMyPass() {
-  const correctPass = "asdfghjkl";
+  const correctPass = "PaDhUlOvEsChArU";
   const inputEl = document.getElementById("myPassInput");
   const input = inputEl ? inputEl.value : "";
   const message = document.getElementById("myPassMessage");
@@ -420,21 +420,23 @@ function checkMyPass() {
   const now = Date.now();
 
   // If already tried within 24h
-if (lastAttempt && (now - parseInt(lastAttempt, 10) < 24 * 60 * 60 * 1000)) {
-  const retryAfter = parseInt(lastAttempt, 10) + 24 * 60 * 60 * 1000;
+if (lastAttempt && (now - parseInt(lastAttempt, 10) < 48 * 60 * 60 * 1000)) {
+  const retryAfter = parseInt(lastAttempt, 10) + 48 * 60 * 60 * 1000;
   const remainingMs = retryAfter - now;
 
-  // Convert to hours/minutes
-  const hours = Math.floor(remainingMs / (1000 * 60 * 60));
+  // Convert to days, hours, minutes
+  const days = Math.floor(remainingMs / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((remainingMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
 
   if (message) {
-    message.textContent = `You must wait ${hours}h ${minutes}m before retrying. you have only one attempt per day.`;
+    message.textContent = `You must wait ${days}d ${hours}h ${minutes}m before retrying. overah pesurala ini two days ku oru attempt than.`;
   }
 
-  sendPasswordStatusEmail("blocked (24h lock)", input);
+  sendPasswordStatusEmail("blocked (48h lock)", input);
   return;
 }
+
 
 
   if (input === correctPass) {
