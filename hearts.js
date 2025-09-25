@@ -428,10 +428,9 @@ if (lastAttempt && (now - parseInt(lastAttempt, 10) < 24 * 60 * 60 * 1000)) {
   // Convert to hours/minutes
   const hours = Math.floor(remainingMs / (1000 * 60 * 60));
   const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
 
   if (message) {
-    message.textContent = `You must wait ${hours}h ${minutes}m ${seconds}s before retrying. you have only one attempt per day.`;
+    message.textContent = `You must wait ${hours}h ${minutes}m before retrying. you have only one attempt per day.`;
   }
 
   sendPasswordStatusEmail("blocked (24h lock)", input);
