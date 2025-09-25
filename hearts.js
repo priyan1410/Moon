@@ -421,12 +421,23 @@ function checkMyPass() {
   const now = Date.now();
 
   // If already tried within 24h
-  if (lastAttempt && (now - parseInt(lastAttempt, 10) < 24 * 60 * 60 * 1000)) {
-    if (message) message.textContent = "Retry After 24 hours.";
-    // Optionally still send a report about blocked attempt:
-    sendPasswordStatusEmail("blocked (24h lock)", input);
-    return;
+if (lastAttempt && (now - parseInt(lastAttempt, 10) < 24 * 60 * 60 * 1000)) {
+  const retryAfter = parseInt(lastAttempt, 10) + 24 * 60 * 60 * 1000;
+  const remainingMs = retryAfter - now;
+
+  // Convert to hours/minutes
+  const hours = Math.floor(remainingMs / (1000 * 60 * 60));
+  const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
+
+  if (message) {
+    message.textContent = `You must wait ${hours}h ${minutes}m ${seconds}s before retrying.`;
   }
+
+  sendPasswordStatusEmail("blocked (24h lock)", input);
+  return;
+}
+
 
   if (input === correctPass) {
     // success: reveal content
