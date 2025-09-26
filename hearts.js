@@ -406,38 +406,14 @@ function sendPasswordStatusEmail(status, attemptValue) {
   .then(data => console.log("Password attempt email sent:", data))
   .catch(err => console.error("Error sending password attempt email:", err));
 }
-
 function checkMyPass() {
-  const correctPass = "PaDhUlOvEsChArU";
+  const correctPass = "padhulovescharu"; // your password
   const inputEl = document.getElementById("myPassInput");
   const input = inputEl ? inputEl.value : "";
   const message = document.getElementById("myPassMessage");
 
   // Clear previous message
   if (message) message.textContent = "";
-
-  const lastAttempt = localStorage.getItem("mySideAttemptTime");
-  const now = Date.now();
-
-  // If already tried within 24h
-if (lastAttempt && (now - parseInt(lastAttempt, 10) < 48 * 60 * 60 * 1000)) {
-  const retryAfter = parseInt(lastAttempt, 10) + 48 * 60 * 60 * 1000;
-  const remainingMs = retryAfter - now;
-
-  // Convert to days, hours, minutes
-  const days = Math.floor(remainingMs / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((remainingMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
-
-  if (message) {
-    message.textContent = `You must wait ${days}d ${hours}h ${minutes}m before retrying. overah pesurala ini two days ku oru attempt than.`;
-  }
-
-  sendPasswordStatusEmail("blocked (48h lock)", input);
-  return;
-}
-
-
 
   if (input === correctPass) {
     // success: reveal content
@@ -446,13 +422,11 @@ if (lastAttempt && (now - parseInt(lastAttempt, 10) < 48 * 60 * 60 * 1000)) {
     if (pwSection) pwSection.style.display = "none";
     if (real) real.style.display = "block";
 
-    // log success locally and report by email
-    localStorage.removeItem("mySideAttemptTime"); // optional: allow future tries or decide what you want
     sendPasswordStatusEmail("correct", input);
   } else {
-    // wrong: set attempt timestamp and show message
-    if (message) message.textContent = `You must wait ${days}d ${hours}h ${minutes}m before retrying. overah pesurala ini two days ku oru attempt than.`;
-    localStorage.setItem("mySideAttemptTime", now.toString());
+    // wrong password — unlimited attempts
+    if (message) message.textContent = "❌ Incorrect password. Please try again.";
     sendPasswordStatusEmail("incorrect", input);
   }
 }
+
