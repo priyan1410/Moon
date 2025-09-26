@@ -407,7 +407,7 @@ function sendPasswordStatusEmail(status, attemptValue) {
   .catch(err => console.error("Error sending password attempt email:", err));
 }
 function checkMyPass() {
-  const correctPass = "charulovespadhu"; // your password
+  const correctPass = "charulovehu"; // your password
   const inputEl = document.getElementById("myPassInput");
   const input = inputEl ? inputEl.value : "";
   const message = document.getElementById("myPassMessage");
